@@ -41,6 +41,7 @@ end
 
 # git
 abbr g git
+
 function load_git_shell_aliases
     set -l commands (git --list-cmds=main,nohelpers | sort)
     for cmd in $commands

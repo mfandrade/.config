@@ -12,3 +12,5 @@ cursor-style = block
 cursor-style-blink = true
 cursor-invert-fg-bg = true
 shell-integration-features = no-cursor
+keybind = ctrl+slash=text:/
+keybind = shift+ctrl+slash=text:?

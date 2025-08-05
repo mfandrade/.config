@@ -33,7 +33,7 @@ end
 
 # git
 alias g=git
-function load_git_aliases
+function load_git_shell_aliases
     set -l commands (git --list-cmds=main,nohelpers | sort)
     for cmd in $commands
         alias g$cmd="git $cmd"

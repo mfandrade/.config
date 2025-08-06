@@ -32,11 +32,11 @@ function tt
 end
 
 # git
-alias g=git
+abbr g git
 function load_git_shell_aliases
     set -l commands (git --list-cmds=main,nohelpers | sort)
     for cmd in $commands
-        alias g$cmd="git $cmd"
+        abbr g$cmd "git $cmd"
     end
 end
 

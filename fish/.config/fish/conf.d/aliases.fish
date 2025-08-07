@@ -50,30 +50,19 @@ function load_git_shell_aliases
 end
 
 # asdf
-alias apadd='asdf plugin add'
-alias aplist='asdf plugin list'
-alias aplistall='asdf plugin list all'
-alias alist='asdf list'
-alias alistall='asdf list all'
-
-function apsearch
-    asdf plugin list all | grep $argv
-end
-
-function auninstall
-    set -l plugin $argv[1]
-    if test -n "$plugin"
-        for v in (asdf list $plugin)
-            asdf uninstall $plugin $v
-        end
-    end
-end
-
+abbr apla 'asdf plugin list all'
+abbr apa 'asdf plugin add'
+abbr apl 'asdf plugin list'
+abbr apr 'asdf plugin remove'
 function alatest
     set -l plugin $argv[1]
     set -l latest (test "$plugin" = java; and echo "latest:openjdk"; or echo latest)
     asdf install $plugin $latest && asdf set --home $plugin $latest
 end
+abbr ai 'asdf install'
+abbr al 'asdf list'
+abbr ala 'asdf list all'
+abbr au 'asdf uninstall'
 
 # nala
 function sudo

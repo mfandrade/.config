@@ -89,11 +89,11 @@
     discard-all = checkout .
     copy = "!f() { git checkout $2 -- $1 }; f"
 
-    d = diff --color-words=.
+    d = diff --color-words
     dt = difftool
     difft = difftool
     lsd = diff --stat
-    staged = diff --staged --color-words=.
+    staged = diff --staged --color-words
     cached = diff --cached
     view  = "!f() { git diff --color-words "$1"^.."$1"; }; f"
 

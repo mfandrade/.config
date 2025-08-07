@@ -63,19 +63,3 @@ abbr ai 'asdf install'
 abbr al 'asdf list'
 abbr ala 'asdf list all'
 abbr au 'asdf uninstall'
-
-# nala
-function sudo
-    set -l cmd $argv[1]
-    set -e argv[1]
-
-    if test -n "$cmd"
-        if string match -q "$cmd" apt apt-get
-            command sudo nala $argv
-        else
-            command sudo $cmd $argv
-        end
-    else
-        command sudo
-    end
-end

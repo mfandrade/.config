@@ -1,0 +1,10 @@
+*
+!.gitignore
+!.config/bin/
+!.config/docker/
+!.config/fish/
+!.config/ghostty/
+!.config/git/
+!.config/mc/
+!.config/tmux/
+!user-dirs.dirs

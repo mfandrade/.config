@@ -13,7 +13,7 @@
 [core]
     editor = vim
     pager = less -FRSX
-    ; hooksPath = ~/.config/git/hooks ; uncomment for glyphs in semantic commits
+    hooksPath = ~/.config/git/hooks
 
 [diff]
     context = 3
@@ -88,6 +88,7 @@
     discard = checkout
     discard-all = checkout .
     copy = "!f() { git checkout $2 -- $1 }; f"
+
     cp = cherry-pick
 
     d = diff --color-words

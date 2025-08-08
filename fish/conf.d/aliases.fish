@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 abbr cd- 'cd -'
 abbr cd.. 'cd ..'
 abbr .. 'cd ..'
@@ -19,6 +20,15 @@ alias rg='rg -.'
 
 # tree
 alias tree='exa --tree --level=2 --git'
+=======
+alias cd..='cd ..'
+alias 1..='cd..'
+alias 2..='cd ../..'
+alias 3..='cd ../../..'
+alias 4..='cd ../../../..'
+alias 5..='cd ../../../../..'
+alias 6..='cd ../../../../../..'
+>>>>>>> e1db152 (feat!: version .config is easier)
 
 # bat
 alias cat='bat -n'
@@ -40,6 +50,7 @@ function ctrlc
     if file -bL --mime "$file" | grep -q 'binary$'
         return 1
     end
+<<<<<<< HEAD
     if type -q wl-copy
         wl-copy <"$file"
     else if type -q xsel
@@ -47,20 +58,33 @@ function ctrlc
     else
         return 3
     end
+=======
+    xsel --clipboard <"$file"
+>>>>>>> e1db152 (feat!: version .config is easier)
 end
 
 # tmux
 alias tn='tmux new-session'
 alias tl='tmux list-sessions'
+<<<<<<< HEAD
 alias ta='tmux attach-session'
 function tt
     set -l session (count $argv) >/dev/null; and set session $argv[1]; or set session default
+=======
+function tt
+    set -l session (count $argv) >/dev/null; and set session $argv[1]; or set session 0
+>>>>>>> e1db152 (feat!: version .config is easier)
     tmux has-session -t "$session" >/dev/null 2>&1
     and tmux attach-session -t "$session"
     or tmux new-session -s "$session"
 end
 
 # git
+<<<<<<< HEAD
+=======
+abbr g git
+
+>>>>>>> e1db152 (feat!: version .config is easier)
 function load_git_shell_aliases
     set -l commands (git --list-cmds=main,nohelpers | sort)
     for cmd in $commands
@@ -69,10 +93,16 @@ function load_git_shell_aliases
 end
 
 # asdf
+<<<<<<< HEAD
 abbr apl 'asdf plugin list'
 abbr apla 'asdf plugin list all'
 abbr aplag 'asdf plugin list all | grep'
 abbr apa 'asdf plugin add'
+=======
+abbr apla 'asdf plugin list all'
+abbr apa 'asdf plugin add'
+abbr apl 'asdf plugin list'
+>>>>>>> e1db152 (feat!: version .config is easier)
 abbr apr 'asdf plugin remove'
 function alatest
     set -l plugin $argv[1]
@@ -82,6 +112,7 @@ end
 abbr ai 'asdf install'
 abbr al 'asdf list'
 abbr ala 'asdf list all'
+<<<<<<< HEAD
 abbr alag 'asdf list all | grep'
 abbr au 'asdf uninstall'
 
@@ -92,3 +123,14 @@ abbr sai 'sudo nala install'
 abbr saui 'sudo nala update && sudo nala install'
 abbr sar 'sudo nala remove --autoremove'
 abbr safs 'sudo apt-file search'
+=======
+abbr au 'asdf uninstall'
+
+abbr s sudo
+abbr sa 'sudo apt-get'
+abbr sau 'sudo apt-get update'
+abbr sai 'sudo apt-get install'
+abbr saui 'sudo apt-get update && sudo apt-get install'
+abbr sar 'sudo apt-get remove'
+abbr saar 'sudo apt-get autoremove'
+>>>>>>> e1db152 (feat!: version .config is easier)

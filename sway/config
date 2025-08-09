@@ -30,6 +30,10 @@ gaps inner 10
 gaps outer 0
 # smart_gaps on
 
+# apps
+workspace number 1
+exec foot
+
 # focus and move
 bindsym $mod+h focus left
 bindsym $mod+j focus down

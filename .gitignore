@@ -17,4 +17,6 @@
 !tmux/
 !tmux/**
 tmux/plugins/
+!sway/
+!sway/**
 !user-dirs.dirs

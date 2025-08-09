@@ -1,8 +1,7 @@
 # vars
 set $mod Mod4
-set $menu waybar #wofi --show drun
-set $color1 #d35400
-set $color2 #222222
+# set $menu waybar #wofi --show drun
+set $menu exec wofi --show drun --show-icons --style ~/.config/sway/wofi.css --prompt "Run: "
 
 # input
 input * {
@@ -11,16 +10,19 @@ input * {
 }
 
 # basic
-bindsym $mod+Return exec $term
 bindsym $mod+Return exec sh -c 'command -v ghostty && exec ghostty || command -v foot && exec foot || exec gnome-terminal'
 bindsym $mod+Shift+r reload
 bindsym $mod+Shift+x kill
 bindsym $mod+Shift+q exit
+bindsym $mod+r exec $menu
 
 # look-and-feel
 output * bg /usr/share/backgrounds/Fuji_san_by_amaral.png fill
 
-default_border pixel 2
+set $color1 #d35400
+set $color2 #222222
+
+default_border pixel 3
 client.focused          $color1 $color1 $color1 $color1
 client.unfocused        $color2 $color2 $color2 $color2
 

@@ -16,4 +16,5 @@
 !nvim/**
 !tmux/
 !tmux/**
+tmux/plugins/
 !user-dirs.dirs

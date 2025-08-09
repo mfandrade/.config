@@ -26,7 +26,13 @@ function ctrlc
     if file -bL --mime "$file" | grep -q 'binary$'
         return 1
     end
-    xsel --clipboard <"$file"
+    if type -q wl-copy
+        wl-copy <"$file"
+    else if type -q xsel
+        xsel --clipboard <"$file"
+    else
+        return 3
+    end
 end
 
 # tmux

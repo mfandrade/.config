@@ -12,7 +12,7 @@ install: home prereqs $(DOTFILES) asdf configdir asdf_plugins fish_setup fonts
 
 fish_setup:
 	@echo "🐟 Verificando se Oh My Fish está instalado..."
-	@if ! fish -c "type -q omf"; then \
+	@if ! fish -c "functions -q omf"; then \
 		echo "📦 Instalando Oh My Fish..."; \
 		curl -sL https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install | fish; \
 	else \

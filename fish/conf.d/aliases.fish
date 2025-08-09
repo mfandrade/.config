@@ -6,6 +6,11 @@ alias 4..='cd ../../../..'
 alias 5..='cd ../../../../..'
 alias 6..='cd ../../../../../..'
 
+# extremely common
+abbr l 'ls -lF'
+abbr v vim
+abbr g git
+
 # bat
 alias cat='bat -n'
 
@@ -46,7 +51,6 @@ function tt
 end
 
 # git
-abbr g git
 function load_git_shell_aliases
     set -l commands (git --list-cmds=main,nohelpers | sort)
     for cmd in $commands

@@ -27,6 +27,8 @@ set $term sh -c 'ghostty'
 set $dmenu dmenu -i -fn 'Ubuntu Nerd Font-13' -nb '#1e1e2e' -nf '#ffffff' -sb '#e07b39' -sf '#000000' -p ': '
 set $runner j4-dmenu-desktop --dmenu="$dmenu" --term=ghostty
 
+set $lock swaylock -c 000000
+
 # input
 input * {
     xkb_layout br
@@ -37,6 +39,7 @@ input * {
 bindsym $mod+Return exec $term
 bindsym $mod+r exec $runner
 bindsym $mod+Shift+r reload
+bindsym Control+Shift+l exec $lock
 bindsym $mod+Shift+x kill
 bindsym $mod+Shift+q exit
 
@@ -60,6 +63,13 @@ exec ghostty
 workspace number 2
 exec flatpak run org.mozilla.firefox
 workspace number 1
+
+exec swayidle -w \
+  timeout 600 $lock \
+  timeout 570 'swaymsg "output * dpms off"' \
+  resume 'swaymsg "output * dpms on"' \
+  before-sleep $lock
+
 
 # focus and move
 bindsym $mod+h focus left

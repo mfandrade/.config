@@ -2,6 +2,7 @@
 
 # theme = light:"GitHub-Light-Default",dark:"GitHub-Dark-High-Contrast"
 theme = "GitHub-Dark-High-Contrast"
+font-size = 14
 font-family = "JetBrainsMono Nerd Font"
 font-family-bold = "JetBrains Mono Nerd Font Regular"
 font-family-italic = "JetBrains Mono Nerd Font Italic"

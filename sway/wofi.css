@@ -1,14 +1,19 @@
 window {
     margin: 10px;
     background-color: #222;
-    border-radius: 10px;
     font-family: JetBrainsMono Nerd Font;
     font-size: 14px;
 }
 
 #input {
-    background-color: #333;
+    border: 2px solid #d35400;
+    background-color: #111;
     color: #fff;
+}
+
+#entry {
+    padding: 8px;
+    color: #999;
 }
 
 #entry:selected {

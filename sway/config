@@ -32,9 +32,10 @@ smart_gaps off
 
 # apps
 workspace number 1
-exec foot
+exec ghostty
 workspace number 2
-exec firefox
+exec flatpak run org.mozilla.firefox
+workspace number 1
 
 # focus and move
 bindsym $mod+h focus left

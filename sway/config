@@ -1,7 +1,7 @@
 # vars
 set $mod Mod4
-# set $menu waybar #wofi --show drun
-set $menu exec wofi --show drun --show-icons --style ~/.config/sway/wofi.css --prompt "Run: "
+set $term sh -c 'foot'
+set $menu wofi --show drun --show-icons --style ~/.config/sway/wofi.css --prompt "Run: "
 
 # input
 input * {
@@ -10,12 +10,11 @@ input * {
 }
 
 # basic
-# bindsym $mod+Return exec sh -c 'command -v ghostty && exec ghostty || command -v foot && exec foot || exec gnome-terminal'
-bindsym $mod+Return exec sh -c 'foot'
+bindsym $mod+Return exec $term
+bindsym $mod+r exec $menu
 bindsym $mod+Shift+r reload
 bindsym $mod+Shift+x kill
 bindsym $mod+Shift+q exit
-bindsym $mod+r exec $menu
 
 # look-and-feel
 output * bg /usr/share/backgrounds/Fuji_san_by_amaral.png fill
@@ -29,11 +28,13 @@ client.unfocused        $color2 $color2 $color2 $color2
 
 gaps inner 10
 gaps outer 0
-# smart_gaps on
+smart_gaps off
 
 # apps
 workspace number 1
 exec foot
+workspace number 2
+exec firefox
 
 # focus and move
 bindsym $mod+h focus left
@@ -72,25 +73,27 @@ bindsym $mod+Left workspace prev
 bindsym Control+Mod1+Left workspace prev
 bindsym Control+Mod1+Right workspace next
 
-
 # layout
 bindsym $mod+f fullscreen toggle
 bindsym $mod+Shift+f floating toggle
 bindsym $mod+e layout toggle split
 bindsym $mod+Shift+e layout reset
-bindsym $mod+Shift+backslash splitv     # $mod+| → split vertical
-bindsym $mod+minus splith               # $mod+- → split horizontal
+bindsym $mod+Shift+backslash splitv
+bindsym $mod+minus splith
 
 # bar
-#
 bar {
-    font pango:JetBrainsMono Nerd Font 10
+    font pango:UbuntuMono Nerd Font 12
     position top
     status_command i3status
     colors {
         focused_workspace  #00000000 #00000000 #000000
-        inactive_workspace #000000 #000000 #cccccc
-        urgent_workspace   #FF0000 #FF0000 #FFFFFF
+        inactive_workspace #000000 #000000 #CCCCCC
+        urgent_workspace   #FF00FF #FF00FF #FFFFFF
         active_workspace   #222222 #222222 #FFFFFF
     }
 }
+
+# advanced goodies
+bindsym XF86MonBrightnessUp exec brightnessctl --device='intel_backlight' set +10%
+bindsym XF86MonBrightnessDown exec brightnessctl --device='intel_backlight' set 10%-

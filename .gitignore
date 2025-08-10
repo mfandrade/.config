@@ -19,4 +19,6 @@
 tmux/plugins/
 !sway/
 !sway/**
+!waybar/
+!waybar/**
 !user-dirs.dirs

@@ -75,8 +75,7 @@ abbr au 'asdf uninstall'
 
 abbr s sudo
 abbr sa 'sudo apt-get'
-abbr sau 'sudo apt-get update'
+abbr sau 'sudo apt-get update;'
 abbr sai 'sudo apt-get install'
 abbr saui 'sudo apt-get update && sudo apt-get install'
-abbr sar 'sudo apt-get remove'
-abbr saar 'sudo apt-get autoremove'
+abbr sar 'sudo apt-get remove --autoremove'

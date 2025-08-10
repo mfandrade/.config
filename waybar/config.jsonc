@@ -16,8 +16,8 @@
   },
   "network": {
     "format-wifi": "  {essid}",
-    "format-ethernet": " {ifname}",
-    "format-disconnected": "⚠️ No net",
+    "format-ethernet": " {ifname}",
+    "format-disconnected": " Disconnected",
     "tooltip": false
   },
   "clock": {

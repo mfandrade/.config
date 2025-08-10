@@ -80,22 +80,15 @@ bindsym $mod+Shift+backslash splitv     # $mod+| → split vertical
 bindsym $mod+minus splith               # $mod+- → split horizontal
 
 # bar
+#
 bar {
+    font pango:JetBrainsMono Nerd Font 10
     position top
-    # status_command while date +'%T'; do sleep 1; done
     status_command i3status
     colors {
-        # Workspace ativo: fundo transparente, borda transparente, texto preto
         focused_workspace  #00000000 #00000000 #000000
-
-        # Workspace inativo: tudo preto
         inactive_workspace #000000 #000000 #cccccc
-
-        # Workspace urgente (opcional)
         urgent_workspace   #FF0000 #FF0000 #FFFFFF
-
-        # Workspace visível em outro monitor (opcional)
         active_workspace   #222222 #222222 #FFFFFF
     }
 }
-

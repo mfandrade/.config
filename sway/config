@@ -5,12 +5,27 @@ exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSO
 exec /usr/libexec/xdg-desktop-portal-wlr &
 exec /usr/libexec/xdg-desktop-portal &
 exec brightnessctl --device='intel_backlight' set 1%
-exec_always --no-startup-id waybar
+# exec_always --no-startup-id sh -c 'pkill waybar; waybar'
+bar {
+    font pango:Ubuntu Nerd Font 11
+    position top
+    status_command i3status
+    colors {
+        background         #000000
+        focused_workspace  #e07b39    #e07b39    #ffffff
+        inactive_workspace #222222    #222222    #cccccc
+        urgent_workspace   #ff00ff    #ff00ff    #ffffff
+        active_workspace   #e07b39    #e07b39    #ffffff
+    }
+    separator_symbol " | "
+}
 
 # vars
 set $mod Mod4
 set $term sh -c 'ghostty'
-set $menu wofi --show drun --show-icons --style ~/.config/sway/wofi.css --prompt "Run: "
+# set $runner waybar #wofi --show drun --show-icons --style ~/.config/sway/wofi.css --prompt "Run: "
+set $dmenu dmenu -i -fn 'Ubuntu Nerd Font-13' -nb '#1e1e2e' -nf '#ffffff' -sb '#e07b39' -sf '#000000' -p ': '
+set $runner j4-dmenu-desktop --dmenu="$dmenu" --term=ghostty
 
 # input
 input * {
@@ -20,7 +35,7 @@ input * {
 
 # basic
 bindsym $mod+Return exec $term
-bindsym $mod+r exec $menu
+bindsym $mod+r exec $runner
 bindsym $mod+Shift+r reload
 bindsym $mod+Shift+x kill
 bindsym $mod+Shift+q exit
@@ -91,21 +106,7 @@ bindsym $mod+Shift+e layout reset
 bindsym $mod+Shift+backslash splitv
 bindsym $mod+minus splith
 
-# bar
-# bar {
-#     font pango:Ubuntu Nerd Font 15
-#     position top
-#     status_command i3status
-#     colors {
-#         background         #000000
-#         focused_workspace  #e07b39    #e07b39    #ffffff
-#         inactive_workspace #222222    #222222    #cccccc
-#         urgent_workspace   #ff00ff    #ff00ff    #ffffff
-#         active_workspace   #e07b39    #e07b39    #ffffff
-#     }
-#     separator_symbol ""
-# }
-#
+
 # advanced goodies
 bindsym XF86MonBrightnessUp exec brightnessctl --device='intel_backlight' set +10%
 bindsym XF86MonBrightnessDown exec brightnessctl --device='intel_backlight' set 10%-

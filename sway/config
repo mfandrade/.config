@@ -91,18 +91,20 @@ bindsym $mod+Shift+backslash splitv
 bindsym $mod+minus splith
 
 # bar
-bar {
-    font pango:UbuntuMono Nerd Font 12
-    position top
-    status_command i3status
-    colors {
-        focused_workspace  #00000000 #00000000 #000000
-        inactive_workspace #000000 #000000 #CCCCCC
-        urgent_workspace   #FF00FF #FF00FF #FFFFFF
-        active_workspace   #222222 #222222 #FFFFFF
-    }
-}
-
+# bar {
+#     font pango:Ubuntu Nerd Font 15
+#     position top
+#     status_command i3status
+#     colors {
+#         background         #000000
+#         focused_workspace  #e07b39    #e07b39    #ffffff
+#         inactive_workspace #222222    #222222    #cccccc
+#         urgent_workspace   #ff00ff    #ff00ff    #ffffff
+#         active_workspace   #e07b39    #e07b39    #ffffff
+#     }
+#     separator_symbol ""
+# }
+#
 # advanced goodies
 bindsym XF86MonBrightnessUp exec brightnessctl --device='intel_backlight' set +10%
 bindsym XF86MonBrightnessDown exec brightnessctl --device='intel_backlight' set 10%-

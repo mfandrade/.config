@@ -1,0 +1,27 @@
+// waybar/config.jsonc
+{
+  "layer": "top",
+  "position": "top",
+  "height": 28,
+  "modules-left": [
+    "sway/workspaces"
+  ],
+  "modules-right": [
+    "network",
+    "clock"
+  ],
+  "sway/workspaces": {
+    "format": "{name}",
+    "disable-scroll": true
+  },
+  "network": {
+    "format-wifi": "  {essid}",
+    "format-ethernet": " {ifname}",
+    "format-disconnected": "⚠️ No net",
+    "tooltip": false
+  },
+  "clock": {
+    "format": " {:%H:%M}",
+    "tooltip": false
+  }
+}

@@ -1,4 +1,4 @@
-# sway/config
+# .config/sway/config
 
 # init
 exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP=sway
@@ -6,6 +6,7 @@ exec /usr/libexec/xdg-desktop-portal-wlr &
 exec /usr/libexec/xdg-desktop-portal &
 exec brightnessctl --device='intel_backlight' set 1%
 # exec_always --no-startup-id sh -c 'pkill waybar; waybar'
+
 bar {
     font pango:Ubuntu Nerd Font 11
     position top
@@ -26,13 +27,19 @@ set $term sh -c 'ghostty'
 # set $runner waybar #wofi --show drun --show-icons --style ~/.config/sway/wofi.css --prompt "Run: "
 set $dmenu dmenu -i -fn 'Ubuntu Nerd Font-13' -nb '#1e1e2e' -nf '#ffffff' -sb '#e07b39' -sf '#000000' -p ': '
 set $runner j4-dmenu-desktop --dmenu="$dmenu" --term=ghostty
-
 set $lock swaylock -c 000000
 
 # input
-input * {
+input type:keyboard {
     xkb_layout br
     xkb_variant abnt2
+}
+
+input type:touchpad {
+    dwt enabled
+    tap enabled
+    natural_scroll enabled
+    middle_emulation enabled
 }
 
 # basic
@@ -45,17 +52,41 @@ bindsym $mod+Shift+q exit
 
 # look-and-feel
 output * bg /usr/share/backgrounds/Fuji_san_by_amaral.png fill
-
-set $color1 #d35400
-set $color2 #222222
-
-default_border pixel 3
-client.focused          $color1 $color1 $color1 $color1
-client.unfocused        $color2 $color2 $color2 $color2
-
-gaps inner 10
+gaps inner 5
 gaps outer 0
 smart_gaps off
+
+font "pango:Ubuntu Nerd Font:style=Bold 12"
+
+set $color_orange  #e07b39
+set $color_dgray   #222222
+set $color_black   #000000
+set $color_white   #ffffff
+set $color_lgray   #cccccc
+
+default_border pixel 3
+default_floating_border normal
+
+client.focused          $color_orange $color_orange $color_black $color_orange $color_orange
+client.unfocused        $color_dgray  $color_dgray  $color_white $color_dgray  $color_dgray
+
+# keybindings
+bindsym F11 fullscreen toggle
+bindsym $mod+f focus mode_toggle
+bindsym $mod+Shift+f floating toggle
+bindsym $mod+Shift+space floating toggle
+bindsym $mod+space focus mode_toggle
+bindsym $mod+a focus parent
+
+bindsym $mod+t layout tabbed, border normal
+bindsym $mod+s layout stacking, border normal
+bindsym $mod+Minus exec swaymsg layout splitv; swaymsg for_window [tiling] border pixel 3
+bindsym $mod+Shift+backslash exec swaymsg layout splith; swaymsg for_window [tiling] border pixel 3
+
+# try to force border pixel 3 (BUG: panes gain title bar after layout switch)
+for_window [tiling] border pixel 3
+
+bindsym $mod+Shift+minus move scratchpad
 
 # apps
 workspace number 1
@@ -70,7 +101,6 @@ exec swayidle -w \
   resume 'swaymsg "output * dpms on"' \
   before-sleep $lock
 
-
 # focus and move
 bindsym $mod+h focus left
 bindsym $mod+j focus down
@@ -81,6 +111,7 @@ bindsym $mod+Shift+j move down
 bindsym $mod+Shift+k move up
 bindsym $mod+Shift+l move right
 
+# workspaces
 bindsym $mod+1 workspace number 1
 bindsym $mod+2 workspace number 2
 bindsym $mod+3 workspace number 3
@@ -108,15 +139,7 @@ bindsym $mod+Left workspace prev
 bindsym Control+Mod1+Left workspace prev
 bindsym Control+Mod1+Right workspace next
 
-# layout
-bindsym $mod+f fullscreen toggle
-bindsym $mod+Shift+f floating toggle
-bindsym $mod+e layout toggle split
-bindsym $mod+Shift+e layout reset
-bindsym $mod+Shift+backslash splitv
-bindsym $mod+minus splith
-
-
 # advanced goodies
 bindsym XF86MonBrightnessUp exec brightnessctl --device='intel_backlight' set +10%
 bindsym XF86MonBrightnessDown exec brightnessctl --device='intel_backlight' set 10%-
+

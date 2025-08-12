@@ -42,8 +42,9 @@ function ctrlc
 end
 
 # tmux
-alias tn='tmux new-session'
-alias tl='tmux list-sessions'
+abbr tn 'tmux new-session'
+abbr tl 'tmux list-sessions'
+abbr ta 'tmux attach-session'
 function tt
     set -l session (count $argv) >/dev/null; and set session $argv[1]; or set session 0
     tmux has-session -t "$session" >/dev/null 2>&1
@@ -60,9 +61,10 @@ function load_git_shell_aliases
 end
 
 # asdf
-abbr apla 'asdf plugin list all'
-abbr apa 'asdf plugin add'
 abbr apl 'asdf plugin list'
+abbr apla 'asdf plugin list all'
+abbr aplag 'asdf plugin list all | grep'
+abbr apa 'asdf plugin add'
 abbr apr 'asdf plugin remove'
 function alatest
     set -l plugin $argv[1]
@@ -72,6 +74,7 @@ end
 abbr ai 'asdf install'
 abbr al 'asdf list'
 abbr ala 'asdf list all'
+abbr alag 'asdf list all | grep'
 abbr au 'asdf uninstall'
 
 abbr s sudo
@@ -80,3 +83,8 @@ abbr sau 'sudo apt-get update;'
 abbr sai 'sudo apt-get install'
 abbr saui 'sudo apt-get update && sudo apt-get install'
 abbr sar 'sudo apt-get remove --autoremove'
+abbr safs 'sudo apt-file search'
+
+abbr d dpkg
+abbr dl 'dpkg -l'
+abbr dlg 'dpkg -l | grep'

@@ -10,6 +10,7 @@ alias 6..='cd ../../../../../..'
 abbr l 'ls -lF'
 abbr v vim
 abbr g git
+abbr cd z
 
 # bat
 alias cat='bat -n'

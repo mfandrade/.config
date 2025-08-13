@@ -78,13 +78,9 @@ abbr alag 'asdf list all | grep'
 abbr au 'asdf uninstall'
 
 abbr s sudo
-abbr sa 'sudo apt-get'
-abbr sau 'sudo apt-get update;'
-abbr sai 'sudo apt-get install'
-abbr saui 'sudo apt-get update && sudo apt-get install'
-abbr sar 'sudo apt-get remove --autoremove'
+abbr sa 'sudo nala'
+abbr sau 'sudo nala update;'
+abbr sai 'sudo nala install'
+abbr saui 'sudo nala update && sudo nala install'
+abbr sar 'sudo nala remove --autoremove'
 abbr safs 'sudo apt-file search'
-
-abbr d dpkg
-abbr dl 'dpkg -l'
-abbr dlg 'dpkg -l | grep'

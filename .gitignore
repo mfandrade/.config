@@ -18,11 +18,9 @@
 !tmux/**
 tmux/plugins/
 !regolith3/
-regolith3/*
-!regolith/sway/
-regolith4/sway/*
+!regolith3/Xresources
+!regolith3/sway/
 !regolith3/sway/config.d/
-!regolith3/sway/config.d/**
 !sway/
 !sway/**
 !waybar/

@@ -1,0 +1,7 @@
+wm.bar.position: top
+wm.bar.background.color: #000000
+wm.bar.statusline.color: #FFFFFF
+wm.bar.separator.color: #666666
+wm.bar.font: Ubuntu Nerd Font 11
+regolith.wallpaper.file: /usr/share/backgrounds/Fuji_san_by_amaral.png
+regolith.lockscreen.wallpaper.file: /usr/share/backgrounds/Fuji_san_by_amaral.png

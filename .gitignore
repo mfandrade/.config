@@ -17,13 +17,11 @@
 !tmux/
 !tmux/**
 tmux/plugins/
+!i3status-rs/
+!i3status-rs/**
 !regolith3/
 !regolith3/Xresources
 !regolith3/sway/
 !regolith3/sway/config.d/
-!sway/
-!sway/**
-!waybar/
-!waybar/**
 !user-dirs.dirs
 **/*.bak

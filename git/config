@@ -95,7 +95,6 @@
     lsd = diff --stat
     staged = diff --staged --color-words
     cached = diff --cached
-    view  = "!f() { git diff --color-words "$1"^.."$1"; }; f"
 
     unadd = restore --staged
     unstage = restore --staged

@@ -1,50 +1,18 @@
-[theme]
-theme = "semi-native"
+#[theme]
+#theme = "semi-native"
 
 [icons]
-icons = "awesome4"
+icons = "material-nf"
 
-# [[block]]
-# block = "rofication"
-# interval = 1
-# socket_path = "/tmp/rofi_notification_daemon"
-# [[block.click]]
-# button = "left"
-# cmd = "ilia -p notifications"
+[[block]]
+block = "rofication"
+interval = 30
+socket_path = "/tmp/rofi_notification_daemon"
+[[block.click]]
+button = "left"
+cmd = "ilia -p notifications"
 
-# [[block]]
-# block = "battery"
-# format = " $icon\u2009 $percentage "
-# missing_format = ""
-# device = "DisplayDevice"
-# driver = "upower"
-#
-# [[block]]
-# block = "time"
-# interval = 60
-# format = " $timestamp.datetime(f:'%b,%dth (%a)')"
-#
 [[block]]
 block = "time"
 interval = 1
-format = "$timestamp.datetime(f:'%a,%d/%b %T')  "
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+format = "$timestamp.datetime(f:'%a,%d/%b') - $timestamp.datetime(f:'%T') $icon"

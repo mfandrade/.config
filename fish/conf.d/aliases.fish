@@ -44,15 +44,15 @@ function ctrlc
 end
 
 # tmux
-alias tn='tmux new-session'
-alias tl='tmux list-sessions'
-alias ta='tmux attach-session'
-function tt
-    set -l session (count $argv) >/dev/null; and set session $argv[1]; or set session 0
-    tmux has-session -t "$session" >/dev/null 2>&1
-    and tmux attach-session -t "$session"
-    or tmux new-session -s "$session"
-end
+# alias tn='tmux new-session'
+# alias tl='tmux list-sessions'
+# alias ta='tmux attach-session'
+# function tt
+#     set -l session (count $argv) >/dev/null; and set session $argv[1]; or set session default
+#     tmux has-session -t "$session" >/dev/null 2>&1
+#     and tmux attach-session -t "$session"
+#     or tmux new-session -s "$session"
+# end
 
 # git
 function load_git_shell_aliases

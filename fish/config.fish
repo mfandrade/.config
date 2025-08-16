@@ -18,4 +18,7 @@ if status is-interactive
     set -g theme_show_exit_status no
     # fish_vi_key_bindings; set -g theme_display_vi yes
 
+    if test -z "$TMUX"; and type -q tmux
+        tmux attach -t default 2>/dev/null; or tmux new -s default
+    end
 end

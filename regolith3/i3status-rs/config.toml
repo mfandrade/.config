@@ -11,6 +11,9 @@ socket_path = "/tmp/rofi_notification_daemon"
 [[block.click]]
 button = "left"
 cmd = "ilia -p notifications"
+[[block.click]]
+button = "right"
+cmd = "~/bin/restart_rofication.sh"
 
 [[block]]
 block = "time"

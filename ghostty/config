@@ -1,15 +1,11 @@
-# You can preview the config here: https://ghostty.zerebos.com/
-
-# theme = light:"GitHub-Light-Default",dark:"GitHub-Dark-High-Contrast"
-theme = "GitHub-Dark-High-Contrast"
+theme = light:"GitHub-Light-Default",dark:"GitHub-Dark-High-Contrast"
 font-size = 14
 font-family = "JetBrainsMono Nerd Font"
 font-family-bold = "JetBrains Mono Nerd Font Regular"
 font-family-italic = "JetBrains Mono Nerd Font Italic"
 font-family-bold-italic = "JetBrains Mono Nerd Font Italic"
 bold-is-bright = false
-background-opacity = 0.80
-cursor-opacity = 0.5
+background-opacity = 0.50
 #cursor-color = "#addc10"
 cursor-style = block
 cursor-style-blink = true

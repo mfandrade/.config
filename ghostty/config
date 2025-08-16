@@ -12,8 +12,7 @@ cursor-style-blink = true
 cursor-invert-fg-bg = true
 shell-integration = none
 shell-integration-features = no-cursor
+confirm-close-surface = false
 keybind = ctrl+slash=text:/
 keybind = shift+ctrl+slash=text:?
 
-# adjust-cell-width = 98%
-# adjust-cell-height = 100%

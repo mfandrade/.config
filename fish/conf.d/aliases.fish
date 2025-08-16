@@ -7,10 +7,12 @@ alias 5..='cd ../../../../..'
 alias 6..='cd ../../../../../..'
 
 # extremely common
-abbr l 'ls -lF'
-abbr v vim
-abbr g git
+abbr ls eza
 abbr cd z
+abbr g git
+
+# tree
+alias tree='exa --tree --group-directories-first'
 
 # bat
 alias cat='bat -n'
@@ -42,9 +44,9 @@ function ctrlc
 end
 
 # tmux
-abbr tn 'tmux new-session'
-abbr tl 'tmux list-sessions'
-abbr ta 'tmux attach-session'
+alias tn='tmux new-session'
+alias tl='tmux list-sessions'
+alias ta='tmux attach-session'
 function tt
     set -l session (count $argv) >/dev/null; and set session $argv[1]; or set session 0
     tmux has-session -t "$session" >/dev/null 2>&1

@@ -11,6 +11,7 @@ if status is-interactive
         eval (ssh-agent -c)
     end
 
+    set -x EZA_ICONS_AUTO yes
     set -g theme_newline_cursor yes
     set -g theme_date_format "+%s"
     set -g theme_display_git_untracked no

@@ -8,11 +8,12 @@ alias 6..='cd ../../../../../..'
 
 # extremely common
 abbr ls eza
-abbr cd z
 abbr g git
+abbr cd z
+abbr zz zi
 
 # tree
-alias tree='exa --tree --group-directories-first'
+alias tree='exa --tree --level=2 --git'
 
 # bat
 alias cat='bat -n'

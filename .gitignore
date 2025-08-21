@@ -22,6 +22,7 @@ tmux/plugins/
 !regolith3/i3status-rs/**
 !regolith3/sway/
 !regolith3/sway/config.d/
+!regolith3/sway/config.d/**
 !regolith3/Xresources
 !user-dirs.dirs
 **/*.bak

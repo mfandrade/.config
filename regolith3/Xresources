@@ -1,31 +1,29 @@
-regolith.wallpaper.file: /usr/share/backgrounds/Fuji_san_by_amaral.png
-regolith.lockscreen.wallpaper.file: /usr/share/backgrounds/Fuji_san_by_amaral.png
-
+! 📊 Barra
 wm.bar.position: top
 wm.bar.font: "Ubuntu Nerd Font" 11
 wm.bar.status_config: ~/.config/regolith3/i3status-rs/config.toml
-! wm.bar.status_command: i3status-rs ~/.config/i3status-rs/config.toml
 
-wm.gaps.inner.size: 4
-wm.gaps.outer.size: 0
-wm.gaps.smart: on
-
+! 🎨 Cores da barra
 wm.bar.background.color: #000000
 wm.bar.statusline.color: #FFFFFF
 wm.bar.separator.color: #666666
 
+! 🧠 Workspaces - Focused
 wm.bar.workspace.focused.border.color: #cc7722
-! wm.bar.workspace.focused.background.color: #4A4A4A
-! wm.bar.workspace.focused.text.color: #FFFFFF
-!
-! wm.bar.workspace.active.border.color:
-! wm.bar.workspace.active.background.color:
-! wm.bar.workspace.active.text.color:
-!
-! wm.bar.workspace.inactive.border.color: #333333
-! wm.bar.workspace.inactive.background.color:  #000000
+wm.bar.workspace.focused.background.color: #4A4A4A
+wm.bar.workspace.focused.text.color: #FFFFFF
+
+! 🟢 Workspaces - Active
+wm.bar.workspace.active.border.color: #cc7722
+wm.bar.workspace.active.background.color: #2A2A2A
+wm.bar.workspace.active.text.color: #DDDDDD
+
+! ⚫ Workspaces - Inactive
+wm.bar.workspace.inactive.border.color: #333333
+wm.bar.workspace.inactive.background.color: #000000
 wm.bar.workspace.inactive.text.color: #999999
-!
-! wm.bar.workspace.urgent.border.color: #990000
-! wm.bar.workspace.urgent.background.color:  #330000
-! wm.bar.workspace.urgent.text.color: #990000
+
+! 🔴 Workspaces - Urgent
+wm.bar.workspace.urgent.border.color: #990000
+wm.bar.workspace.urgent.background.color: #330000
+wm.bar.workspace.urgent.text.color: #990000

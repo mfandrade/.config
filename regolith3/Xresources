@@ -9,12 +9,12 @@ wm.bar.statusline.color: #FFFFFF
 wm.bar.separator.color: #666666
 
 ! 🧠 Workspaces - Focused
-wm.bar.workspace.focused.border.color: #cc7722
+wm.bar.workspace.focused.border.color: #CC7722
 wm.bar.workspace.focused.background.color: #4A4A4A
 wm.bar.workspace.focused.text.color: #FFFFFF
 
 ! 🟢 Workspaces - Active
-wm.bar.workspace.active.border.color: #cc7722
+wm.bar.workspace.active.border.color: #CC7722
 wm.bar.workspace.active.background.color: #2A2A2A
 wm.bar.workspace.active.text.color: #DDDDDD
 

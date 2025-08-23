@@ -13,7 +13,7 @@ button = "left"
 cmd = "ilia -p notifications"
 [[block.click]]
 button = "right"
-cmd = "~/bin/restart_rofication.sh"
+cmd = "~/bin/restart-rofication.sh"
 
 [[block]]
 block = "time"

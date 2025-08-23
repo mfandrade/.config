@@ -1,10 +1,11 @@
-alias cd..='cd ..'
-alias 1..='cd..'
-alias 2..='cd ../..'
-alias 3..='cd ../../..'
-alias 4..='cd ../../../..'
-alias 5..='cd ../../../../..'
-alias 6..='cd ../../../../../..'
+abbr cd- 'cd -'
+abbr cd.. 'cd ..'
+abbr .. 'cd ..'
+abbr 1.. 'cd ..'
+abbr 2.. 'cd ../..'
+abbr 3.. 'cd ../../..'
+abbr 4.. 'cd ../../../..'
+abbr 5.. 'cd ../../../../..'
 
 # extremely common
 abbr ls eza

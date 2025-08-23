@@ -11,9 +11,9 @@ abbr 5.. 'cd ../../../../..'
 abbr ls eza
 abbr l 'eza -l'
 abbr g git
+abbr p pwd
 abbr cd z
 abbr zz zi
-
 
 # tree
 alias tree='exa --tree --level=2 --git'

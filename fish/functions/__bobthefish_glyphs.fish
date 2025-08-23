@@ -2,9 +2,9 @@ function __bobthefish_glyphs -S -d 'Define glyphs used by bobthefish'
     # Powerline glyphs
     set -x branch_glyph \uE0A0
     set -x right_black_arrow_glyph \uE0B0
-    set -x right_arrow_glyph \uE0B1
+    set -x right_arrow_glyph \u276F #\uE0B1
     set -x left_black_arrow_glyph \uE0B2
-    set -x left_arrow_glyph \uE0B3
+    set -x left_arrow_glyph \u276E #\uE0B3
 
     # Additional glyphs
     set -x detached_glyph \u27A6

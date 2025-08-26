@@ -7,6 +7,8 @@ nvim/
 !docker/**
 !fish/
 !fish/**
+!fish/functions/
+!fish/functions/**
 !alacritty/
 !alacritty/**
 !git/

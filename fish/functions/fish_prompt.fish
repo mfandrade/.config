@@ -1164,10 +1164,10 @@ function __bobthefish_prompt_git -S -a git_root_dir -a real_pwd -d 'Display the 
     and set flags " $flags"
 
     set -l flag_colors $color_repo
-    if [ "$dirty" ]
-        set flag_colors $color_repo_dirty
-    else if [ "$staged" ]
+    if [ "$staged" ]
         set flag_colors $color_repo_staged
+    else if [ "$dirty" ]
+        set flag_colors $color_repo_dirty
     end
 
     __bobthefish_path_segment $git_root_dir project

@@ -92,7 +92,8 @@
     d = diff --color-words
     dt = difftool
     difft = difftool
-    lsd = diff --stat
+    dst = diff --stat
+    dstat = diff --stat
     staged = diff --staged --color-words
     cached = diff --cached
 

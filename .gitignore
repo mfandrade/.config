@@ -6,8 +6,8 @@
 !docker/**
 !fish/
 !fish/**
-!ghostty/
-!ghostty/**
+!alacritty/
+!alacritty/**
 !git/
 !git/**
 !mc/

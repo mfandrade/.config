@@ -1,5 +1,5 @@
-#[theme]
-#theme = "semi-native"
+[theme]
+theme = "semi-native"
 
 [icons]
 icons = "material-nf"
@@ -13,7 +13,7 @@ button = "left"
 cmd = "ilia -p notifications"
 [[block.click]]
 button = "right"
-cmd = "~/bin/restart-rofication.sh"
+cmd = "restart-rofication.sh"
 
 [[block]]
 block = "net"

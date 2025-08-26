@@ -14,6 +14,8 @@ abbr g git
 abbr p pwd
 abbr cd z
 abbr zz zi
+alias fd='fd -HI'
+alias rg='rg -.'
 
 # tree
 alias tree='exa --tree --level=2 --git'

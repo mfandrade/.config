@@ -1,4 +1,5 @@
 *
+nvim/
 !.gitignore
 !bin/
 !bin/**
@@ -12,8 +13,6 @@
 !git/**
 !mc/
 !mc/**
-!nvim/
-!nvim/**
 !tmux/
 !tmux/**
 tmux/plugins/

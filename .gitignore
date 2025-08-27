@@ -1,28 +1,50 @@
-.config/**
-!.config/alacritty/
-!.config/alacritty/**
-!.config/bin/
-!.config/bin/**
-!.config/docker/
-!.config/docker/**
-!.config/fish/
-!.config/fish/**
-!.config/fish/functions/
-!.config/fish/functions/**
-!.config/git/
-!.config/git/**
-!.config/mc/
-!.config/mc/**
-.config/nvim/
-!.config/regolith3/
-!.config/regolith3/i3status-rs/
-!.config/regolith3/i3status-rs/**
-!.config/regolith3/sway/
-!.config/regolith3/sway/config.d/
-!.config/regolith3/sway/config.d/**
-!.config/regolith3/Xresources
-!.config/tmux/
-!.config/tmux/**
-.config/tmux/plugins/
-!.config/user-dirs.dirs
+*
+
+# ignores everything but...
+# repo files
+!.gitignore
+!README.md
+
+# make setup TODO: update
+!Makefile
+
+!alacritty/
+!alacritty/**
+
+# that will be prepended to path
+!bin/
+!bin/**
+
+# that will be linked to ~/.docker
+!docker/
+!docker/**
+
+!fish/
+!fish/**
+!fish/functions/
+!fish/functions/**
+!git/
+!git/**
+!mc/
+!mc/**
+!regolith3/
+!regolith3/i3status-rs/
+!regolith3/i3status-rs/**
+!regolith3/sway/
+!regolith3/sway/config.d/
+!regolith3/sway/config.d/**
+!regolith3/Xresources
+
+# version defined plugins would be redundant
+!tmux/
+!tmux/**
+tmux/plugins/
+
+# avoid running xdg-users-dirs-update everytime
+!user-dirs.dirs
+
+# will be versioned in another repository
+nvim/
+
+# bak files are unwanted
 **/*.bak

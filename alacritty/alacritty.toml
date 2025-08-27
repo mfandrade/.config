@@ -6,7 +6,7 @@ import = [
 dimensions = { columns = 100, lines = 30 }
 padding = { x = 5, y = 5 }
 decorations = "full"
-opacity = 0.5
+opacity = 0.4
 startup_mode = "Windowed"
 
 [font]

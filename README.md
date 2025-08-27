@@ -1,2 +1,3 @@
-# dotfiles
-Just a collection of my main configuration files
+# .config
+
+My .config folder.

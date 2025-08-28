@@ -1,0 +1,25 @@
+*
+!.gitignore
+!README.md
+!LICENSE
+!bin/
+!bin/**
+
+# !alacritty/
+# !alacritty/**
+# !docker/
+# !docker/**
+# !fish/
+# !fish/**
+# !ghostty/
+# !ghostty/**
+# !git/
+# !git/**
+# !gnome-initial-setup-done
+# !Makefile
+# nvim/
+# !regolith3/
+# !regolith3/**
+# !tmux/
+# !tmux/**
+# !user-dirs.dirs

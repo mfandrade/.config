@@ -1,7 +1,13 @@
 *
 !.gitignore
-!README.md
+!**/*.bak
+
 !LICENSE
+!Makefile
+!README.md
+
+!gnome-initial-setup-done
+!user-dirs.dirs
 
 !bin/
 !bin/**
@@ -9,6 +15,7 @@
 !alacritty/
 !alacritty/**
 alacritty/themes/
+
 !ghostty/
 !ghostty/**
 
@@ -22,9 +29,6 @@ fish/fish_variables
 !git/
 !git/**
 
-# !gnome-initial-setup-done
-# !Makefile
-
 nvim/
 
 !regolith3/
@@ -35,4 +39,3 @@ nvim/
 tmux/plugins/
 tmux/plugins/**
 
-!user-dirs.dirs

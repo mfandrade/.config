@@ -29,6 +29,8 @@ nvim/
 
 # !regolith3/
 # !regolith3/**
-# !tmux/
-# !tmux/**
+!tmux/
+!tmux/**
+tmux/plugins/
+tmux/plugins/**
 # !user-dirs.dirs

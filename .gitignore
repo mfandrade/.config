@@ -11,9 +11,9 @@
 alacritty/themes/
 !ghostty/
 !ghostty/**
-#
-# !docker/
-# !docker/**
+
+!docker/
+!docker/**
 # !fish/
 # !fish/**
 # !git/

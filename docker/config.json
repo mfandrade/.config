@@ -1,0 +1,5 @@
+{
+  "auths": {},
+  "currentContext": "rootless",
+  "psFormat": "{{.ID}}\t{{.Names}} [{{.Image}}]\n - command:\t{{.Command}}\n - volumes:\t({{.LocalVolumes}}) {{.Mounts}}\n - ports:\t{{.Ports}}\n - networks:\t{{.Networks}}\n - status:\t{{.State}}, {{lower .RunningFor}}\n"
+}

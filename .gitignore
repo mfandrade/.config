@@ -9,8 +9,8 @@
 !alacritty/
 !alacritty/**
 alacritty/themes/
-# !ghostty/
-# !ghostty/**
+!ghostty/
+!ghostty/**
 #
 # !docker/
 # !docker/**

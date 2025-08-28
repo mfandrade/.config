@@ -24,7 +24,9 @@ fish/fish_variables
 
 # !gnome-initial-setup-done
 # !Makefile
-# nvim/
+
+nvim/
+
 # !regolith3/
 # !regolith3/**
 # !tmux/

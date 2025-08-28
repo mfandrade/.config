@@ -14,8 +14,10 @@ alacritty/themes/
 
 !docker/
 !docker/**
-# !fish/
-# !fish/**
+
+!fish/
+!fish/**
+fish/fish_variables
 # !git/
 # !git/**
 # !gnome-initial-setup-done

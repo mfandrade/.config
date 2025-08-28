@@ -2,17 +2,20 @@
 !.gitignore
 !README.md
 !LICENSE
+
 !bin/
 !bin/**
 
-# !alacritty/
-# !alacritty/**
+!alacritty/
+!alacritty/**
+alacritty/themes/
+# !ghostty/
+# !ghostty/**
+#
 # !docker/
 # !docker/**
 # !fish/
 # !fish/**
-# !ghostty/
-# !ghostty/**
 # !git/
 # !git/**
 # !gnome-initial-setup-done

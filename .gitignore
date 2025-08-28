@@ -33,6 +33,8 @@ nvim/
 
 !regolith3/
 !regolith3/**
+regolith3/flags/
+regolith3/kanshi/
 
 !tmux/
 !tmux/**

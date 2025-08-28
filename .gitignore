@@ -35,4 +35,4 @@ nvim/
 tmux/plugins/
 tmux/plugins/**
 
-# !user-dirs.dirs
+!user-dirs.dirs

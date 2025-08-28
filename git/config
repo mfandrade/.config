@@ -1,0 +1,130 @@
+[init]
+    defaultBranch = main
+
+[user]
+    name = Marcelo F Andrade
+    email = mfandrade@gmail.com
+    signingkey = 608DE262EFB14FE3
+
+[commit]
+    gpgSign = false
+    template = ~/.config/git/template
+
+[core]
+    editor = vim
+    pager = less -FRSX
+    ; hooksPath = ~/.config/git/hooks ; uncomment for glyphs in semantic commits
+
+[diff]
+    context = 3
+    renames = copies
+    interHunkContext = 10
+    tool = difftastic
+
+[color "diff-highlight"]
+    oldNormal = red
+    newNormal = green
+    oldHighlight = red bold
+    newHighlight = green bold
+
+[color "diff"]
+    meta = black bold
+    frag = yellow
+    old = red
+    new = green
+
+[difftool]
+    prompt = false
+
+[difftool "difftastic"]
+    cmd = difft --display=side-by-side "$MERGED" "$LOCAL" "abcdef1" "100644" "$REMOTE" "abcdef2" "100644"
+
+[pager]
+    diff = diff-so-fancy | less --tabs=4 -RFX
+    difftool = true
+
+[diff-so-fancy]
+    markEmptyLines = false
+    stripLeadingSymbols = true
+
+[interactive]
+    diffFilter = diff-so-fancy --patch
+    singlekey = true
+
+[url "git@github.com:mfandrade/"]
+    insteadOf = "my:"
+
+[url "git@github.com:"]
+    insteadOf = "gh:"
+
+[alias]
+    aliases = "!git config --get-regexp '^alias\\.' | sed -E 's/^alias\\.//; s/ / = /' | sort"
+
+    cl = clone
+
+    br = branch
+    bra = branch --all
+    brd = branch --delete
+    brD = branch -D
+    brm = branch --move
+    bru = branch --set-upstream-to
+
+    uncommit = reset --soft HEAD~1
+    com = commit
+    comm = commit --message
+    comra = commit --reset-author
+    allcom = commit --all --verbose
+    a = commit --amend
+    amend = commit --amend
+    am = commit --amend --message
+    ane = commit --amend --no-edit
+
+    s = status
+    ss = status --ignored=matching --untracked-files=all
+    st = status --short
+
+    co = checkout
+    cob = checkout -b
+    discard = checkout
+    discard-all = checkout .
+    copy = "!f() { git checkout $2 -- $1 }; f"
+
+    d = diff --color-words
+    dt = difftool
+    difft = difftool
+    dst = diff --stat
+    dstat = diff --stat
+    staged = diff --staged --color-words
+    cached = diff --cached
+
+    unadd = restore --staged
+    unstage = restore --staged
+    patch = add --patch
+    stage = add
+
+    graph = "!f() { git log --color=always --graph --all --pretty=format:'%C(yellow)%h %C(cyan)%an  %C(black)%ar%C(auto)  %D%n%s%n' | less -FRSX; }; f"
+    hist = "!f() { git log --color=always --pretty=format:'%C(yellow)%h%C(reset)%C(magenta)%d %C(white)%s %C(blue)[%al]  %C(black)%ar%C(reset)' | less -FRSX; }; f"
+    last = log --pretty=format:\"%C(yellow)%h%C(reset)%C(magenta)%d %C(white)%s %C(blue)[%al]  %C(black)%ar%C(reset)\" -1 --stat
+    ls = "!git log --pretty=format:'%h | %as | %al | %s%d' --reverse | sed 's/\\([a-zA-Z ]*:\\)[[:space:]]*[^[:alnum:][:space:]]\\{1,\\}[[:space:]]*/\\1 /g'"
+
+    r = remote
+    rem = remote --verbose
+    radd = remote add
+    rdel = remote rm
+
+[pull]
+    rebase = true
+    default = true
+
+[push]
+    autoSetupRemote = true
+    default =  current
+    followTags = true
+
+[rebase]
+    autoStash = true
+    missingCommitsCheck = warn
+
+[include]
+    path = ~/.gitconfig.extra
+# -----------------------------------------------------------------------------

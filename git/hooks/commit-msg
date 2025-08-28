@@ -1,0 +1,42 @@
+#!/bin/sh
+
+MSG_FILE="$1"
+
+# checks for GLYPH=no as an envvar
+if [ -n "$GLYPH" ]; then
+    VAL=$(echo "$GLYPH" | tr '[:upper:]' '[:lower:]' | tr -d '[:space:]')
+    case "$VAL" in
+        no | n | 0 | false) exit 0 ;;
+    esac
+fi
+
+# checks for GLYPH=no uncommented in the body message
+if grep -iqE '^GLYPH=(no|n|0|false)' "$MSG_FILE"; then
+    sed -i '/^GLYPH=/d' "$MSG_FILE"
+    exit 0
+fi
+
+# remove non-textual chars to avoid potential glyphs duplicates
+sed -i '1s/^\([a-zA-Z ]*:\)[[:space:]]*[^[:alnum:][:space:]]\{1,\}[[:space:]]*/\1 /' "$MSG_FILE"
+
+FIRST_LINE=$(head -n 1 "$MSG_FILE")
+
+case "$FIRST_LINE" in
+    feat:*) EMOJI="✨" ;;
+    fix:*) EMOJI="🩹" ;;
+    chore:*) EMOJI="🧹" ;;
+    style:*) EMOJI="💅" ;;
+    refactor:*) EMOJI="🔨" ;;
+    docs:*) EMOJI="📃" ;;
+    test:*) EMOJI="🚦" ;;
+    ci:*) EMOJI="📦" ;;
+    deploy:*) EMOJI="🚀" ;;
+    perf:*) EMOJI="🏃" ;;
+    debug:*) EMOJI="🧪" ;;
+    "BREAKING CHANGE:"*) EMOJI="🚨" ;;
+    *) EMOJI="" ;;
+esac
+
+if [ -n "$EMOJI" ]; then
+    sed -i "1s/^\([a-zA-Z ]*:\)\(.*\)/\1${EMOJI}\2/" "$MSG_FILE"
+fi

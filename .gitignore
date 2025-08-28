@@ -18,8 +18,10 @@ alacritty/themes/
 !fish/
 !fish/**
 fish/fish_variables
-# !git/
-# !git/**
+
+!git/
+!git/**
+
 # !gnome-initial-setup-done
 # !Makefile
 # nvim/

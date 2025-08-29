@@ -12,10 +12,4 @@ if status is-interactive
     end
 
     set -x EZA_ICONS_AUTO yes
-
-    if test -z "$TMUX"; and type -q tmux
-        if test "$TERM_PROGRAM" != vscode
-            tmux attach -t default 2>/dev/null; or tmux new -s default
-        end
-    end
 end

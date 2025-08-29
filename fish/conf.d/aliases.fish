@@ -16,6 +16,7 @@ abbr cd z
 abbr zz zi
 alias fd='fd -HI'
 alias rg='rg -.'
+alias scp='scp -O'
 
 # tree
 alias tree='exa --tree --level=2 --git'

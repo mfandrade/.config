@@ -88,6 +88,7 @@
     discard = checkout
     discard-all = checkout .
     copy = "!f() { git checkout $2 -- $1 }; f"
+    cp = cherry-pick
 
     d = diff --color-words
     dt = difftool

@@ -16,12 +16,13 @@ button = "right"
 cmd = "restart-rofication.sh"
 
 [[block]]
-block = "net"
-format = " $icon {$ssid ($signal_strength)|wired conn} "
-
-[[block]]
 block = "battery"
 format = " $icon $percentage "
+full_format = ""
+
+[[block]]
+block = "net"
+format = " $icon {$ssid ($signal_strength)|wired conn}"
 
 [[block]]
 block = "time"

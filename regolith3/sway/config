@@ -129,7 +129,9 @@ set_from_resource $wm.font gtk.font_name Sans 13
 font pango:$wm.font
 
 # Executes i3status-rs
-exec --no-startup-id i3status-rs
+bar {
+   status_command i3status-rs
+}
 
 ###############################################################################
 # Common Navigation Bindings

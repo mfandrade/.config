@@ -16,10 +16,10 @@ set $wm.binding.left  h
 set $wm.binding.down  j
 set $wm.binding.up    k
 set $wm.binding.right l
-set $wm.binding.move_left  h
-set $wm.binding.move_right l
-set $wm.binding.move_up    k
-set $wm.binding.move_down  j
+set $wm.binding.move_left  Shift+h
+set $wm.binding.move_right Shift+l
+set $wm.binding.move_up    Shift+k
+set $wm.binding.move_down  Shift+j
 
 set $wm.binding.file_search $mod+$alt+Space
 

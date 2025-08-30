@@ -14,6 +14,8 @@ abbr g git
 abbr p pwd
 abbr cd z
 abbr zz zi
+abbr lg lazygit
+abbr lr lazydocker
 alias fd='fd -HI'
 alias rg='rg -.'
 alias scp='scp -O'

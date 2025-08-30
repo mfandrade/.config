@@ -7,9 +7,9 @@ set --path PATH $HOME/bin $PATH
 
 if status is-interactive
 
-    if not set -q SSH_AUTH_SOCK
-        eval (ssh-agent -c)
-    end
+    set -q SSH_AUTH_SOCK; or eval (ssh-agent -c)
 
     set -x EZA_ICONS_AUTO yes
+
+    set -g theme_nerd_fonts yes
 end

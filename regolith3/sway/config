@@ -52,9 +52,9 @@ set_from_resource $wm.bar.status_config wm.bar.status_config $HOME/.config/i3sta
 set_from_resource $wm.bar.position wm.bar.position top
 set_from_resource $wm.bar.font wm.bar.font Sans 12
 bar {
-    status_command i3status-rs $wm.bar.status_config
+    status_command /usr/bin/i3status-rs /home/mfa/.config/regolith3/i3status-rust/config.toml
     position $wm.bar.position
-    font pango: $wm.font
+    font pango: $wm.bar.font
 }
 
 # input "type:touchpad" {

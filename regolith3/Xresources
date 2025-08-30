@@ -10,7 +10,7 @@ wm.binding.dec_gaps: bracketleft
 wm.binding.inc_gaps_big: Shift+bracketright
 wm.binding.dec_gaps_big: Shift+bracketleft
 
-# TODO: alterar esse comportamento no nvim
+! TODO: alterar esse comportamento no nvim
 wm.binding.split_v: minus
 wm.binding.split_h: equal
 wm.binding.layout_mode: backslash

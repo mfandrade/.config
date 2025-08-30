@@ -4,6 +4,8 @@
 # Usamos um diretório de cache do usuário para boa prática.
 STATE_FILE="$HOME/.cache/darkmode_state"
 
+ALACRITTY_CONFIG="$HOME/.config/alacritty/alacritty.toml"
+
 # Função para exibir o estado atual
 show_status() {
   if [ -f "$STATE_FILE" ]; then
@@ -22,13 +24,15 @@ show_status() {
 # Função para ligar o modo escuro
 set_dark() {
   gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
+  sed -i 's/lite.toml/dark.toml/' $ALACRITTY_CONFIG
   echo "on" >"$STATE_FILE"
   echo "Dark mode turned ON"
 }
 
 # Função para desligar o modo escuro
-set_light() {
+set_lite() {
   gsettings set org.gnome.desktop.interface color-scheme 'prefer-light'
+  sed -i 's/dark.toml/lite.toml/' $ALACRITTY_CONFIG
   echo "off" >"$STATE_FILE"
   echo "Dark mode turned OFF"
 }
@@ -39,7 +43,7 @@ case "$1" in
     set_dark
     ;;
   off)
-    set_light
+    set_lite
     ;;
   status)
     show_status
@@ -47,7 +51,7 @@ case "$1" in
   *)
     # Comportamento padrão: alternar
     if [ -f "$STATE_FILE" ] && [ "$(cat "$STATE_FILE")" = "on" ]; then
-      set_light
+      set_lite
     else
       set_dark
     fi

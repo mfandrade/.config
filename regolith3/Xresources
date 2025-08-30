@@ -2,7 +2,6 @@ regolith.wallpaper.options: zoom
 regolith.wallpaper.file: /home/mfa/.Images/bg.png
 regolith.lockscreen.wallpaper.file: /home/mfa/.Images/bg.png
 
-! 📊 Barra
 wm.bar.position: top
 wm.bar.font: "Ubuntu Nerd Font" 11
 wm.bar.status_config: /home/mfa/.config/regolith3/i3status-rust/config.toml
@@ -10,27 +9,20 @@ wm.bar.status_config: /home/mfa/.config/regolith3/i3status-rust/config.toml
 wm.carry_container_to_ws_key: Mod4+Shift
 wm.move_container_to_ws_key: Mod4+Alt
 
-! ! 🎨 Cores da barra
-! wm.bar.background.color: #000000
-! wm.bar.statusline.color: #FFFFFF
-! wm.bar.separator.color: #666666
-!
-! ! 🧠 Workspaces - Focused
-! wm.bar.workspace.focused.border.color: #CC7722
-! wm.bar.workspace.focused.background.color: #4A4A4A
-! wm.bar.workspace.focused.text.color: #FFFFFF
-!
-! ! 🟢 Workspaces - Active
-! wm.bar.workspace.active.border.color: #CC7722
-! wm.bar.workspace.active.background.color: #2A2A2A
-! wm.bar.workspace.active.text.color: #DDDDDD
-!
-! ! ⚫ Workspaces - Inactive
-! wm.bar.workspace.inactive.border.color: #333333
-! wm.bar.workspace.inactive.background.color: #000000
-! wm.bar.workspace.inactive.text.color: #999999
-!
-! ! 🔴 Workspaces - Urgent
-! wm.bar.workspace.urgent.border.color: #990000
-! wm.bar.workspace.urgent.background.color: #330000
-! wm.bar.workspace.urgent.text.color: #990000
+wm.binding.inc_gaps: bracketright
+wm.binding.dec_gaps: bracketleft
+wm.binding.inc_gaps_big: Shift+bracketright
+wm.binding.dec_gaps_big: Shift+bracketleft
+
+! TODO: alterar esse comportamento no nvim
+wm.binding.split_v: minus
+wm.binding.split_h: equal
+wm.binding.layout_mode: backslash
+
+wm.binding.fullscreen_toggle: z
+wm.binding.focus_parent: Page_Up
+wm.binding.focus_child: Page_Down
+
+wm.bar.position: top
+wm.bar.font: "Ubuntu Nerd Font" 11
+

@@ -1,32 +1,27 @@
-###############################################################################
-# wm config file for the Regolith Desktop Environment
-###############################################################################
-#
-# In this config file many values are taken from Xresources with the directive
-# set_from_resource:
-#
-# set_from_resource <variable name> <Xresources key> <default value>
-#
-###############################################################################
-#
-# This file uses a machine-parsable format for comments. The schema is:
-# ## <Category> // <Action> // <Keybinding> ##
-# Learn more at https://github.com/regolith-linux/remontoire
-#
-###############################################################################
+set $mod  Mod4
+set $alt  Mod1
+set $ws1_key     1
+set $ws2_key     2
+set $ws3_key     3
+set $ws4_key     4
+set $ws5_key     5
+set $ws6_key     6
+set $ws7_key     7
+set $ws8_key     8
+set $ws9_key     9
+set $ws10_key    0
+set $ws_high_key Ctrl
 
-###############################################################################
-# Meta Key Mappings
-###############################################################################
+set $wm.binding.left  h
+set $wm.binding.down  j
+set $wm.binding.up    k
+set $wm.binding.right l
+set $wm.binding.move_left  h
+set $wm.binding.move_right l
+set $wm.binding.move_up    k
+set $wm.binding.move_down  j
 
-# Meta Key - Alt key is Mod1, and Windows key is Mod4
-set_from_resource $mod  wm.mod Mod4
-set_from_resource $alt  wm.alt Mod1
-
-###############################################################################
-# Workspace Names
-# These are the labels which define each workspace.
-###############################################################################
+set $wm.binding.file_search $mod+$alt+Space
 
 # workspaces definition
 set $ws1   "1 <span foreground='#FF0000'></span><span> </span>"
@@ -50,124 +45,38 @@ set $ws18 "18 <span foreground='#000000'></span><span> </span>"
 set $ws19 "19 <span foreground='#000000'></span><span> </span>"
 set $ws20 "20 <span foreground='#000000'></span><span> </span>" # not used
 
-###############################################################################
-# Workspace Keys
-# These are the keys which will be used while binding workspace switching
-###############################################################################
+bindsym $mod+$alt+Space layout toggle split
 
-set_from_resource $ws1_key     wm.workspace.01.key 1
-set_from_resource $ws2_key     wm.workspace.02.key 2
-set_from_resource $ws3_key     wm.workspace.03.key 3
-set_from_resource $ws4_key     wm.workspace.04.key 4
-set_from_resource $ws5_key     wm.workspace.05.key 5
-set_from_resource $ws6_key     wm.workspace.06.key 6
-set_from_resource $ws7_key     wm.workspace.07.key 7
-set_from_resource $ws8_key     wm.workspace.08.key 8
-set_from_resource $ws9_key     wm.workspace.09.key 9
-set_from_resource $ws10_key    wm.workspace.10.key 0
-set_from_resource $ws_high_key wm.workspace.high.key Ctrl
-
-###############################################################################
-# Colors and Fonts
-###############################################################################
-
-# Create variables from Xresources for wm look
-set_from_resource $focused.color.border wm.client.focused.color.border "#002b36"
-set_from_resource $focused.color.background wm.client.focused.color.background "#586e75"
-set_from_resource $focused.color.text wm.client.focused.color.text "#fdf6e3"
-set_from_resource $focused.color.indicator wm.client.focused.color.indicator "#268bd2"
-set_from_resource $focused.color.child_border wm.client.focused.color.child_border
-
-set_from_resource $focused_inactive.color.border wm.client.focused_inactive.color.border "#002b36"
-set_from_resource $focused_inactive.color.background wm.client.focused_inactive.color.background "#073642"
-set_from_resource $focused_inactive.color.text wm.client.focused_inactive.color.text "#839496"
-set_from_resource $focused_inactive.color.indicator wm.client.focused_inactive.color.indicator "#073642"
-set_from_resource $focused_inactive.color.child_border wm.client.focused_inactive.color.child_border
-
-set_from_resource $unfocused.color.border wm.client.unfocused.color.border "#002b36"
-set_from_resource $unfocused.color.background wm.client.unfocused.color.background "#073642"
-set_from_resource $unfocused.color.text wm.client.unfocused.color.text "#839496"
-set_from_resource $unfocused.color.indicator wm.client.unfocused.color.indicator "#073642"
-set_from_resource $unfocused.color.child_border wm.client.unfocused.color.child_border
-
-set_from_resource $urgent.color.border wm.client.urgent.color.border "#002b36"
-set_from_resource $urgent.color.background wm.client.urgent.color.background "#dc322f"
-set_from_resource $urgent.color.text wm.client.urgent.color.text "#fdf6e3"
-set_from_resource $urgent.color.indicator wm.client.urgent.color.indicator "#002b36"
-set_from_resource $urgent.color.child_border wm.client.urgent.color.child_border
-
-
-# Window Border color
-# class                 border                             background                         text                               indicator                          child_border
-client.focused          $focused.color.border              $focused.color.background          $focused.color.text                $focused.color.indicator           $focused.color.child_border
-client.focused_inactive $focused_inactive.color.border     $focused_inactive.color.background $focused_inactive.color.text       $focused_inactive.color.indicator  $focused_inactive.color.child_border
-client.unfocused        $unfocused.color.border            $unfocused.color.background        $unfocused.color.text              $unfocused.color.indicator         $unfocused.color.child_border
-client.urgent           $urgent.color.border               $urgent.color.background           $urgent.color.text                 $urgent.color.indicator            $urgent.color.child_border
-
-# Create variables from Xresources for bar look
-set_from_resource $wm.bar.background.color wm.bar.background.color "#002b36"
-set_from_resource $wm.bar.statusline.color wm.bar.statusline.color "#93a1a1"
-set_from_resource $wm.bar.separator.color wm.bar.separator.color "#268bd2"
-
-set_from_resource $wm.bar.workspace.focused.border.color wm.bar.workspace.focused.border.color "#073642"
-set_from_resource $wm.bar.workspace.focused.background.color wm.bar.workspace.focused.background.color "#073642"
-set_from_resource $wm.bar.workspace.focused.text.color wm.bar.workspace.focused.text.color "#eee8d5"
-
-set_from_resource $wm.bar.workspace.active.border.color wm.bar.workspace.active.border.color "#073642"
-set_from_resource $wm.bar.workspace.active.background.color wm.bar.workspace.active.background.color "#073642"
-set_from_resource $wm.bar.workspace.active.text.color wm.bar.workspace.active.text.color "#586e75"
-
-set_from_resource $wm.bar.workspace.inactive.border.color wm.bar.workspace.inactive.border.color "#002b36"
-set_from_resource $wm.bar.workspace.inactive.background.color wm.bar.workspace.inactive.background.color "#002b36"
-set_from_resource $wm.bar.workspace.inactive.text.color wm.bar.workspace.inactive.text.color "#586e75"
-
-set_from_resource $wm.bar.workspace.urgent.border.color wm.bar.workspace.urgent.border.color "#dc322f"
-set_from_resource $wm.bar.workspace.urgent.background.color wm.bar.workspace.urgent.background.color "#dc322f"
-set_from_resource $wm.bar.workspace.urgent.text.color wm.bar.workspace.urgent.text.color "#fdf6e3"
-
-# Sets wm configs for bar
-set_from_resource $wm.font gtk.font_name Sans 12
-set_from_resource $wm.bar.font wm.bar.font Sans 12
-set_from_resource $wm.bar.position wm.bar.position top
+# i3status-rs
 set_from_resource $wm.bar.status_config wm.bar.status_config $HOME/.config/i3status-rust/config.toml
-
-# Executes i3status-rs
+set_from_resource $wm.bar.position wm.bar.position top
+set_from_resource $wm.bar.font wm.bar.font Sans 12
 bar {
     status_command i3status-rs $wm.bar.status_config
     position $wm.bar.position
     font pango: $wm.font
 }
 
-###############################################################################
-# Common Navigation Bindings
-###############################################################################
-set_from_resource $wm.binding.left wm.binding.left h
-set_from_resource $wm.binding.right wm.binding.right l
-set_from_resource $wm.binding.up wm.binding.up k
-set_from_resource $wm.binding.down wm.binding.down j
+# input "type:touchpad" {
+# regolith detected it somehow
+input "2:8:AlpsPS/2_ALPS_DualPoint_TouchPad" { 
+    # send_events enabled
+    tap enabled
+    tap_button_map lrm
+    # tap_drag enabled
+    # tap_drag_lock disabled
+    # accel_speed 0.0
+    accel_profile adaptive
+    natural_scroll enabled
+    left_handed disabled
+    middle_emulation disabled
+    scroll_method two_finger
+    dwt enabled
+}
 
-###############################################################################
-# Common Window Bindings
-###############################################################################
-set_from_resource $wm.binding.move_left wm.binding.move_left Shift+h
-set_from_resource $wm.binding.move_right wm.binding.move_right Shift+l
-set_from_resource $wm.binding.move_up wm.binding.move_up Shift+k
-set_from_resource $wm.binding.move_down wm.binding.move_down Shift+j
-
-###############################################################################
-# WM Config Partials
-###############################################################################
-
-# Include common partials
+# partials
 include /usr/share/regolith/common/config.d/*
-
-# Include any regolith sway partials
 include /usr/share/regolith/sway/config.d/*
-
-# Include any partials common between i3 and sway sessions
-include $HOME/.config/regolith3/common-wm/config.d/*
-
-# Include any user wm partials
 include $HOME/.config/regolith3/sway/config.d/*
 
 # Start the systemd target manually is the session is not started by systemd

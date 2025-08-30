@@ -28,26 +28,27 @@ set_from_resource $alt  wm.alt Mod1
 # These are the labels which define each workspace.
 ###############################################################################
 
-set $ws1   "1:<span> </span> 1 <span foreground='#FF0000'>⬢</span><span> </span>"
-set $ws2   "2:<span> </span> 2 <span foreground='#FF9900'>⬢</span><span> </span>"
-set $ws3   "3:<span> </span> 3 <span foreground='#CCFF00'>⬢</span><span> </span>"
-set $ws4   "4:<span> </span> 4 <span foreground='#66FF00'>⬢</span><span> </span>"
-set $ws5   "5:<span> </span> 5 <span foreground='#00FF33'>⬢</span><span> </span>"
-set $ws6   "6:<span> </span> 6 <span foreground='#00FFFF'>⬢</span><span> </span>"
-set $ws7   "7:<span> </span> 7 <span foreground='#0066FF'>⬢</span><span> </span>"
-set $ws8   "8:<span> </span> 8 <span foreground='#3300FF'>⬢</span><span> </span>"
-set $ws9   "9:<span> </span> 9 <span foreground='#9900FF'>⬢</span><span> </span>"
-set $ws10 "10:<span> </span>10 <span foreground='#FF0000'>⬢</span><span> </span>"
-set $ws11 "11:<span> </span>11 <span foreground='#FFFFFF'>⬢</span><span> </span>"
-set $ws12 "12:<span> </span>12 <span foreground='#CCCCCC'>⬢</span><span> </span>"
-set $ws13 "13:<span> </span>13 <span foreground='#999999'>⬢</span><span> </span>"
-set $ws14 "14:<span> </span>14 <span foreground='#666666'>⬢</span><span> </span>"
-set $ws15 "15:<span> </span>15 <span foreground='#333333'>⬢</span><span> </span>"
-set $ws16 "16:<span> </span>16 <span foreground='#222222'>⬢</span><span> </span>"
-set $ws17 "17:<span> </span>17 <span foreground='#111111'>⬢</span><span> </span>"
-set $ws18 "18:<span> </span>18 <span foreground='#000000'>⬢</span><span> </span>"
-set $ws19 "19:<span> </span>19 <span foreground='#000000'>⬢</span><span> </span>"
-set $ws20 "20:<span> </span>20 <span foreground='#000000'>⬢</span><span> </span>" # not used
+# workspaces definition
+set $ws1   "1:<span> </span> 1 <span foreground='#FF0000'></span><span> </span>"
+set $ws2   "2:<span> </span> 2 <span foreground='#FF9900'></span><span> </span>"
+set $ws3   "3:<span> </span> 3 <span foreground='#CCFF00'></span><span> </span>"
+set $ws4   "4:<span> </span> 4 <span foreground='#66FF00'></span><span> </span>"
+set $ws5   "5:<span> </span> 5 <span foreground='#00FF33'></span><span> </span>"
+set $ws6   "6:<span> </span> 6 <span foreground='#00FFFF'></span><span> </span>"
+set $ws7   "7:<span> </span> 7 <span foreground='#0066FF'></span><span> </span>"
+set $ws8   "8:<span> </span> 8 <span foreground='#3300FF'></span><span> </span>"
+set $ws9   "9:<span> </span> 9 <span foreground='#9900FF'></span><span> </span>"
+set $ws10 "10:<span> </span>10 <span foreground='#FF0000'></span><span> </span>"
+set $ws11 "11:<span> </span>11 <span foreground='#FFFFFF'></span><span> </span>"
+set $ws12 "12:<span> </span>12 <span foreground='#CCCCCC'></span><span> </span>"
+set $ws13 "13:<span> </span>13 <span foreground='#999999'></span><span> </span>"
+set $ws14 "14:<span> </span>14 <span foreground='#666666'></span><span> </span>"
+set $ws15 "15:<span> </span>15 <span foreground='#333333'></span><span> </span>"
+set $ws16 "16:<span> </span>16 <span foreground='#222222'></span><span> </span>"
+set $ws17 "17:<span> </span>17 <span foreground='#111111'></span><span> </span>"
+set $ws18 "18:<span> </span>18 <span foreground='#000000'></span><span> </span>"
+set $ws19 "19:<span> </span>19 <span foreground='#000000'></span><span> </span>"
+set $ws20 "20:<span> </span>20 <span foreground='#000000'></span><span> </span>" # not used
 
 ###############################################################################
 # Workspace Keys

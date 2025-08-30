@@ -1,0 +1,30 @@
+[theme]
+theme = "semi-native"
+
+[icons]
+icons = "material-nf"
+
+[[block]]
+block = "rofication"
+interval = 30
+socket_path = "/tmp/rofi_notification_daemon"
+[[block.click]]
+button = "left"
+cmd = "ilia -p notifications"
+[[block.click]]
+button = "right"
+cmd = "restart-rofication.sh"
+
+[[block]]
+block = "battery"
+format = " $icon $percentage "
+full_format = ""
+
+[[block]]
+block = "net"
+format = " $icon {$ssid ($signal_strength)|wired conn}"
+
+[[block]]
+block = "time"
+interval = 1
+format = " $icon $timestamp.datetime(f:'%a %d %b') - $timestamp.datetime(f:'%T')"

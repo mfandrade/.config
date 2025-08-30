@@ -4,7 +4,6 @@ regolith.lockscreen.wallpaper.file: /home/mfa/.Images/bg.png
 
 wm.bar.position: top
 wm.bar.font: "Ubuntu Nerd Font" 11
-wm.bar.status_config: /home/mfa/.config/regolith3/i3status-rust/config.toml
 
 wm.carry_container_to_ws_key: Mod4+Shift
 wm.move_container_to_ws_key: Mod4+Alt

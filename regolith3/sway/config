@@ -21,8 +21,6 @@ set $wm.binding.move_right Shift+l
 set $wm.binding.move_up    Shift+k
 set $wm.binding.move_down  Shift+j
 
-set $wm.binding.file_search $mod+$alt+Space
-
 # workspaces definition
 set $ws1   "1 <span foreground='#FF0000'></span><span> </span>"
 set $ws2   "2 <span foreground='#FF9900'></span><span> </span>"
@@ -45,20 +43,32 @@ set $ws18 "18 <span foreground='#000000'></span><span> </span>"
 set $ws19 "19 <span foreground='#000000'></span><span> </span>"
 set $ws20 "20 <span foreground='#000000'></span><span> </span>" # not used
 
-bindsym $mod+$alt+Space layout toggle split
+# 🎨 Cores da barra
+set_from_resource $wm.bar.background.color wm.bar.background.color #000000
+set_from_resource $wm.bar.statusline.color wm.bar.statusline.color #FFFFFF
+set_from_resource $wm.bar.separator.color wm.bar.separator.color #666666
 
-# i3status-rs
-set_from_resource $wm.bar.status_config wm.bar.status_config $HOME/.config/i3status-rust/config.toml
-set_from_resource $wm.bar.position wm.bar.position top
-set_from_resource $wm.bar.font wm.bar.font Sans 12
-bar {
-    status_command i3status-rs $wm.bar.status_config
-    position $wm.bar.position
-    font pango: $wm.font
-}
+# 🧠 Workspaces - Focused
+set_from_resource $wm.bar.workspace.focused.border.color wm.bar.workspace.focused.border.color #CC7722
+set_from_resource $wm.bar.workspace.focused.background.color wm.bar.workspace.focused.background.color #4A4A4A
+set_from_resource $wm.bar.workspace.focused.text.color wm.bar.workspace.focused.text.color #FFFFFF
 
-# input "type:touchpad" {
-# regolith detected it somehow
+# 🟢 Workspaces - Active
+set_from_resource $wm.bar.workspace.active.border.color wm.bar.workspace.active.border.color #CC7722
+set_from_resource $wm.bar.workspace.active.background.color wm.bar.workspace.active.background.color #2A2A2A
+set_from_resource $wm.bar.workspace.active.text.color wm.bar.workspace.active.text.color #DDDDDD
+
+# ⚫ Workspaces - Inactive
+set_from_resource $wm.bar.workspace.inactive.border.color wm.bar.workspace.inactive.border.color #333333
+set_from_resource $wm.bar.workspace.inactive.background.color wm.bar.workspace.inactive.background.color #000000
+set_from_resource $wm.bar.workspace.inactive.text.color wm.bar.workspace.inactive.text.color #999999
+
+# 🔴 Workspaces - Urgent
+set_from_resource $wm.bar.workspace.urgent.border.color wm.bar.workspace.urgent.border.color #990000
+set_from_resource $wm.bar.workspace.urgent.background.color wm.bar.workspace.urgent.background.color #330000
+set_from_resource $wm.bar.workspace.urgent.text.color wm.bar.workspace.urgent.text.color #990000
+
+# input "type:touchpad" { # regolith detected it somehow
 input "2:8:AlpsPS/2_ALPS_DualPoint_TouchPad" { 
     # send_events enabled
     tap enabled

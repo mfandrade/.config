@@ -3,6 +3,7 @@ THEMES_DIR := themes/themes
 # Select theme interactively and store in .selected_theme
 all:
 	echo "$$(ls -1 "$(THEMES_DIR)" | fzf --prompt="Select your preferred alacritty theme:" || echo ayu_light.toml)" > .selected_theme
+	$(MAKE) setup
 
 # Read selected theme from file, fallback to default if file missing or empty
 THEME := $(shell test -s .selected_theme && cat .selected_theme || echo ayu_light.toml)

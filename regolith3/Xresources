@@ -1,6 +1,6 @@
 regolith.wallpaper.options: zoom
-regolith.wallpaper.file: /home/mfa/.Images/bg.png
-regolith.lockscreen.wallpaper.file: /home/mfa/.Images/bg.png
+regolith.wallpaper.file: /usr/share/backgrounds/Fuji_san_by_amaral.png
+regolith.lockscreen.wallpaper.file: /usr/share/backgrounds/Fuji_san_by_amaral.png
 
 wm.carry_container_to_ws_key: Mod4+Shift
 wm.move_container_to_ws_key: Mod4+Alt

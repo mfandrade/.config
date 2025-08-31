@@ -16,6 +16,7 @@ abbr cd z
 abbr zz zi
 abbr lg lazygit
 abbr lr lazydocker
+abbr ffp firefoxpwa
 alias fd='fd -HI'
 alias rg='rg -.'
 alias scp='scp -O'

@@ -24,6 +24,7 @@ show_status() {
 # Função para ligar o modo escuro
 set_dark() {
   gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
+  gsettings set org.gnome.desktop.interface gtk-theme 'Ayu-Dark'
   sed -i 's/lite.toml/dark.toml/' $ALACRITTY_CONFIG
   echo "on" >"$STATE_FILE"
   echo "Dark mode turned ON"
@@ -32,6 +33,7 @@ set_dark() {
 # Função para desligar o modo escuro
 set_lite() {
   gsettings set org.gnome.desktop.interface color-scheme 'prefer-light'
+  gsettings set org.gnome.desktop.interface gtk-theme 'Ayu'
   sed -i 's/dark.toml/lite.toml/' $ALACRITTY_CONFIG
   echo "off" >"$STATE_FILE"
   echo "Dark mode turned OFF"

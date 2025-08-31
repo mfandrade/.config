@@ -42,11 +42,11 @@ wm.floatingwindow.border.size: 3
 wm.binding.bar_toggle: a
 wm.bar.position: top
 wm.bar.mode: invisible
-wm.bar.font: "Ubuntu Nerd Font" 10
-wm.bar.separatorchar: " | "
 wm.bar.stripworkspacenumbers: yes
 wm.bar.status_config: /home/mfa/.config/regolith3/i3status-rust/config.toml
 
+wm.bar.font: "Ubuntu Nerd Font" 10
+wm.bar.separatorchar: " | "
 wm.bar.background.color: #000000
 wm.bar.statusline.color: #333333
 wm.bar.separator.color:  #333333

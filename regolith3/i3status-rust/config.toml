@@ -17,14 +17,14 @@ cmd = "restart-rofication.sh"
 
 [[block]]
 block = "battery"
-format = " $icon $percentage "
+format = "$icon $percentage"
 full_format = ""
 
 [[block]]
 block = "net"
-format = " $icon {$ssid ($signal_strength)|wired conn}"
+format = "$icon {$ssid ($signal_strength)|wired conn}"
 
 [[block]]
 block = "time"
 interval = 1
-format = " $icon $timestamp.datetime(f:'%a %d %b') - $timestamp.datetime(f:'%T')"
+format = "$icon $timestamp.datetime(f:' %a %d %b') - $timestamp.datetime(f:'%T')"

@@ -17,7 +17,7 @@ wm.binding.inc_gaps: bracketright
 wm.binding.dec_gaps: bracketleft
 wm.binding.inc_gaps_big: Shift+bracketright
 wm.binding.dec_gaps_big: Shift+bracketleft
-wm.gaps.inner.size: 6
+wm.gaps.inner.size: 12
 wm.gaps.outer.size: 0
 wm.gaps.smart: on
 
@@ -50,7 +50,7 @@ wm.binding.bar_toggle: a
 wm.bar.position: top
 wm.bar.mode: invisible
 wm.bar.stripworkspacenumbers: yes
-wm.bar.status_config: /home/mfa/.config/regolith3/i3status-rust/config.toml
+wm.bar.status_config: /etc/regolith/i3status-rust/config.toml
 
 wm.bar.font: "Ubuntu Nerd Font" 10
 wm.bar.separatorchar: " | "

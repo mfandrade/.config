@@ -68,8 +68,8 @@ set_from_resource $wm.bar.workspace.urgent.border.color wm.bar.workspace.urgent.
 set_from_resource $wm.bar.workspace.urgent.background.color wm.bar.workspace.urgent.background.color #330000
 set_from_resource $wm.bar.workspace.urgent.text.color wm.bar.workspace.urgent.text.color #990000
 
-# input "type:touchpad" { # regolith detected it somehow
-input "2:8:AlpsPS/2_ALPS_DualPoint_TouchPad" { 
+input "type:touchpad" { 
+# input "2:8:AlpsPS/2_ALPS_DualPoint_TouchPad" { 
     # send_events enabled
     tap enabled
     tap_button_map lrm
@@ -83,6 +83,8 @@ input "2:8:AlpsPS/2_ALPS_DualPoint_TouchPad" {
     scroll_method two_finger
     dwt enabled
 }
+
+exec_always autotiling-rs
 
 # partials
 include /usr/share/regolith/common/config.d/*

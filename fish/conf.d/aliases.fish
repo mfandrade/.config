@@ -1,6 +1,5 @@
 abbr cd- 'cd -'
 abbr cd.. 'cd ..'
-abbr .. 'cd ..'
 abbr 1.. 'cd ..'
 abbr 2.. 'cd ../..'
 abbr 3.. 'cd ../../..'
@@ -12,6 +11,8 @@ abbr ls eza
 abbr l 'eza -l'
 abbr g git
 abbr p pwd
+abbr md mkdir
+abbr rd rmdir
 abbr cd z
 abbr zz zi
 abbr lg lazygit

@@ -19,6 +19,9 @@ alacritty/themes/
 !ghostty/
 !ghostty/**
 
+!kitty/
+!kitty/**
+
 !docker/
 !docker/**
 

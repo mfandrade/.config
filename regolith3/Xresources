@@ -43,8 +43,8 @@ wm.bar.workspace.urgent.border.color: #ff0000
 wm.bar.workspace.urgent.background.color: #660000
 wm.bar.workspace.urgent.text.color: #ffffff
 
-wm.window.border.size: 1
-wm.floatingwindow.border.size: 3
+wm.window.border.size: 2
+wm.floatingwindow.border.size: 5
 
 wm.binding.bar_toggle: a
 wm.bar.position: top

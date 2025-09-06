@@ -84,7 +84,7 @@ input "type:touchpad" {
     dwt enabled
 }
 
-exec_always autotiling-rs
+# exec_always autotiling-rs
 
 # partials
 include /usr/share/regolith/common/config.d/*

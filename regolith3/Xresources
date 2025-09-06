@@ -21,6 +21,9 @@ wm.gaps.inner.size: 12
 wm.gaps.outer.size: 0
 wm.gaps.smart: on
 
+wm.window.border.size: 2
+wm.floatingwindow.border.size: 5
+
 ! TODO: alterar esse comportamento no nvim
 wm.binding.split_v: minus
 wm.binding.split_h: equal
@@ -31,7 +34,7 @@ wm.binding.focus_parent: Page_Up
 wm.binding.focus_child: Page_Down
 
 wm.bar.workspace.focused.border.color: #cc6600
-wm.bar.workspace.focused.background.color: #333333
+wm.bar.workspace.focused.background.color: #4f4f4f
 wm.bar.workspace.focused.text.color: #ffffff
 wm.bar.workspace.active.border.color: #cccccc
 wm.bar.workspace.active.background.color: #333333
@@ -43,9 +46,6 @@ wm.bar.workspace.urgent.border.color: #ff0000
 wm.bar.workspace.urgent.background.color: #660000
 wm.bar.workspace.urgent.text.color: #ffffff
 
-wm.window.border.size: 2
-wm.floatingwindow.border.size: 5
-
 wm.binding.bar_toggle: a
 wm.bar.position: top
 wm.bar.mode: invisible
@@ -54,6 +54,6 @@ wm.bar.status_config: /etc/regolith/i3status-rust/config.toml
 
 wm.bar.font: "Ubuntu Nerd Font" 10
 wm.bar.separatorchar: " | "
-wm.bar.background.color: #000000
-wm.bar.statusline.color: #333333
 wm.bar.separator.color:  #333333
+wm.bar.background.color: #000000
+wm.bar.statusline.color: #cccccc

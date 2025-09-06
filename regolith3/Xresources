@@ -13,10 +13,10 @@ wm.carry_container_to_ws_key: Mod4+Shift
 wm.move_container_to_ws_key: Mod4+Alt
 wm.binding.exit_app: Shift+x
 
-wm.binding.inc_gaps: bracketright
-wm.binding.dec_gaps: bracketleft
-wm.binding.inc_gaps_big: Shift+bracketright
-wm.binding.dec_gaps_big: Shift+bracketleft
+wm.binding.inc_gaps: bracketleft
+wm.binding.dec_gaps: bracketright
+wm.binding.inc_gaps_big: Shift+bracketleft
+wm.binding.dec_gaps_big: Shift+bracketright
 wm.gaps.inner.size: 12
 wm.gaps.outer.size: 0
 wm.gaps.smart: on

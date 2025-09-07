@@ -23,7 +23,7 @@ alias rg='rg -.'
 alias scp='scp -O'
 
 # tree
-alias tree='exa --tree --level=2 --git'
+alias tree='exa --tree --level=2 --git-ignore'
 
 # bat
 alias cat='bat -n'

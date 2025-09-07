@@ -34,7 +34,7 @@ wm.binding.focus_parent: Page_Up
 wm.binding.focus_child: Page_Down
 
 wm.bar.workspace.focused.border.color: #cc6600
-wm.bar.workspace.focused.background.color: #4f4f4f
+wm.bar.workspace.focused.background.color: #333333
 wm.bar.workspace.focused.text.color: #ffffff
 wm.bar.workspace.active.border.color: #cccccc
 wm.bar.workspace.active.background.color: #333333

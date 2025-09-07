@@ -6,6 +6,8 @@ IMAGENAME="screenshot.$(date '+%F,%T,%N').png"
 filepath="$DIR/$IMAGENAME"
 symlink="$DIR/latest-screenshot.png"
 
+test -d $(dirname "$filepath") || mkdir -p $(dirname "$filepath")
+
 case "$MODE" in
   screen)
     grimshot --notify save screen "$filepath"
@@ -20,6 +22,7 @@ case "$MODE" in
 esac
 
 sound="$HOME/dirs/Sounds/screenshot.wav"
+
 if test $? -eq 0; then
   ln -sf "$filepath" "$symlink"
 

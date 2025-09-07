@@ -2,8 +2,8 @@
 
 MODE="${1:-screen}"
 DIR="${XDG_PICTURES_DIR:-$HOME/dirs/Images}"
-IMAGENAME="screenshot.$(date '+%F,%T,%N').png"
-filepath="$DIR/$IMAGENAME"
+IMAGENAME="$(date '+%F,%T,%3N').png"
+filepath="$DIR/screenshots/$IMAGENAME"
 symlink="$DIR/latest-screenshot.png"
 
 test -d $(dirname "$filepath") || mkdir -p $(dirname "$filepath")

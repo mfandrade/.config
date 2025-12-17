@@ -74,26 +74,30 @@ function load_git_shell_aliases
 end
 
 # asdf
-abbr apl 'asdf plugin list'
-abbr apla 'asdf plugin list all'
-abbr aplag 'asdf plugin list all | grep'
-abbr apa 'asdf plugin add'
-abbr apr 'asdf plugin remove'
-function alatest
+abbr asdfpl 'asdf plugin list'
+abbr asdfpla 'asdf plugin list all'
+abbr asdfplag 'asdf plugin list all | grep'
+abbr asdfpa 'asdf plugin add'
+abbr asdfpr 'asdf plugin remove'
+abbr asdfi 'asdf install'
+abbr asdfl 'asdf list'
+abbr asdfla 'asdf list all'
+abbr asdlag 'asdf list all | grep'
+abbr asdfu 'asdf uninstall'
+function asdflatest
     set -l plugin $argv[1]
     set -l latest (test "$plugin" = java; and echo "latest:openjdk"; or echo latest)
     asdf install $plugin $latest && asdf set --home $plugin $latest
 end
-abbr ai 'asdf install'
-abbr al 'asdf list'
-abbr ala 'asdf list all'
-abbr alag 'asdf list all | grep'
-abbr au 'asdf uninstall'
+function asdfupgradeall
+    for p in (asdf plugin list | grep -Ev 'lua|java')
+        asdf install $p latest && asdf set --home $p latest
+            echo
+    end
+end
 
-abbr s sudo
-abbr sa 'sudo nala'
-abbr sau 'sudo nala update;'
-abbr sai 'sudo nala install'
-abbr saui 'sudo nala update && sudo nala install'
-abbr sar 'sudo nala remove --autoremove'
-abbr safs 'sudo apt-file search'
+abbr sudoapt 'sudo nala'
+abbr sudoaptu 'sudo nala update;'
+abbr sudoapti 'sudo nala update && sudo nala install'
+abbr sudoaptr 'sudo nala remove --autoremove'
+abbr sudoaptfs 'sudo apt-file search'

@@ -1,3 +1,3 @@
 {
-  "psFormat": "{{.ID}}\t{{.Names}} [{{.Image}}]\n - command:\t{{.Command}}\n - volumes:\t({{.LocalVolumes}}) {{.Mounts}}\n - ports:\t{{.Ports}}\n - networks:\t{{.Networks}}\n - status:\t{{.State}}, {{lower .RunningFor}}\n"
+  "psFormat": "{{.ID}}\t{{.Names}} [{{.Image}}] | {{lower .RunningFor}}\n- command:\t{{.Command}} | {{lower .Status}}\n- networking:\t{{.Networks}} | {{.Ports}}\n- volumes:\t({{.LocalVolumes}}) {{.Mounts}}\n "
 }

@@ -9,6 +9,7 @@ abbr 5.. 'cd ../../../../..'
 # extremely common
 abbr ls eza
 abbr l 'eza -l'
+abbr t 'eza -T -L2'
 abbr g git
 abbr p pwd
 abbr md mkdir

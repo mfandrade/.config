@@ -71,11 +71,11 @@
 
     uncommit = reset --soft HEAD~1
     com = commit
-    comm = commit --message
     comra = commit --reset-author
-    acom = commit --all --verbose
-    a = commit --amend
+    comm = commit --message
+    comma = commit --all --message
     amend = commit --amend
+    a = commit --amend
     am = commit --amend --message
     ane = commit --amend --no-edit
 

@@ -7,10 +7,13 @@ abbr 4.. 'cd ../../../..'
 abbr 5.. 'cd ../../../../..'
 
 # extremely common
+abbr cls clear
 abbr ls eza
+abbr la 'eza -a'
 abbr l 'eza -l'
-abbr la 'eza -la'
-abbr t 'eza -T -L2'
+abbr t 'eza -T'
+abbr t2 'eza -T -L 2'
+abbr t3 'eza -T -L 3'
 abbr g git
 abbr p pwd
 abbr md mkdir

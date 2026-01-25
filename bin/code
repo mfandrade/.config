@@ -1,0 +1,53 @@
+#!/usr/bin/env bash
+
+# Atalhos rápidos: mude conforme sua necessidade
+case $1 in
+"nvim")
+  selected="$HOME/.config/nvim"
+  ;;
+*)
+  # Se não houver argumento ou não bater com os atalhos, fzf
+  PROJECT_ROOTS=(
+    "$HOME/src"
+    # "$HOME/.config"
+  )
+
+  # Filtro de erro: garante que diretórios inexistentes no array não quebrem o find
+  VALID_ROOTS=()
+  for root in "${PROJECT_ROOTS[@]}"; do
+    [[ -d "$root" ]] && VALID_ROOTS+=("$root")
+  done
+
+  selected=$(find "${VALID_ROOTS[@]}" -mindepth 1 -maxdepth 1 -type d |
+    sed "s,^$HOME,~," | sort -r | fzf)
+  ;;
+esac
+
+if [[ -z $selected ]]; then
+  exit 0
+fi
+
+# Garante path absoluto e resolve links simbólicos
+selected=$(realpath "$selected")
+tmux_name=$(basename "$selected" | tr . _)
+tmux_running=$(pgrep tmux)
+
+# Se o Tmux não está rodando, inicia a sessão e já entra nela
+if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then
+  tmux new-session -s "$tmux_name" -c "$selected"
+  exit 0
+fi
+
+# Se a sessão específica não existe, cria em background
+if ! tmux has-session -t="$tmux_name" 2>/dev/null; then
+  tmux new-session -ds "$tmux_name" -c "$selected"
+fi
+
+# Lógica de entrada/troca
+if [[ -z $TMUX ]]; then
+  # Se você está no terminal puro, anexa à sessão
+  tmux attach-session -t "$tmux_name"
+else
+  # Se você já está dentro do tmux, troca o cliente (o 'salto' instantâneo)
+  tmux switch-client -t "$tmux_name"
+fi

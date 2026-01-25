@@ -25,7 +25,6 @@ abbr lr lazydocker
 abbr ffp firefoxpwa
 alias fd='fd -HI'
 alias rg='rg -.'
-alias scp='scp -O'
 
 # tree
 alias tree='exa --tree --level=2 --git-ignore'
@@ -97,7 +96,7 @@ end
 function asdfupgradeall
     for p in (asdf plugin list | grep -Ev 'lua|java')
         asdf install $p latest && asdf set --home $p latest
-            echo
+        echo
     end
 end
 

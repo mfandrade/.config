@@ -1,3 +1,4 @@
+! ~/.config/regolith3/Xresources
 regolith.wallpaper.options: zoom
 regolith.wallpaper.file: /usr/share/backgrounds/Fuji_san_by_amaral.png
 regolith.lockscreen.wallpaper.file: /usr/share/backgrounds/Fuji_san_by_amaral.png

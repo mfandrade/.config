@@ -1,3 +1,4 @@
+# ~/.config/regolith3/sway/confg
 set $mod  Mod4
 set $alt  Mod1
 set $ws1_key     1

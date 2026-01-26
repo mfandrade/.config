@@ -1,15 +1,21 @@
 #!/usr/bin/env bash
 
 # Atalhos rápidos: mude conforme sua necessidade
+# Exemplo: code.sh config -> vai direto para o nvim
 case $1 in
 "nvim")
   selected="$HOME/.config/nvim"
+  ;;
+"tmux")
+  selected="$HOME/.config/tmux"
+  ;;
+"ts")
+  selected="$HOME/src/typescript-for-developers/"
   ;;
 *)
   # Se não houver argumento ou não bater com os atalhos, fzf
   PROJECT_ROOTS=(
     "$HOME/src"
-    # "$HOME/.config"
   )
 
   # Filtro de erro: garante que diretórios inexistentes no array não quebrem o find
@@ -19,7 +25,7 @@ case $1 in
   done
 
   selected=$(find "${VALID_ROOTS[@]}" -mindepth 1 -maxdepth 1 -type d |
-    sed "s,^$HOME,~," | sort -r | fzf)
+    sort -r | fzf -d '/' --with-nth '-2..-1')
   ;;
 esac
 

@@ -97,7 +97,6 @@ end
 function asdfupgradeall
     for p in (asdf plugin list | grep -Ev 'lua|java')
         asdf install $p latest && asdf set --home $p latest
-        echo
     end
 end
 

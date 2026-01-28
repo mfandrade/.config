@@ -8,6 +8,7 @@ abbr 5.. 'cd ../../../../..'
 
 # extremely common
 abbr c code
+abbr v nvim
 abbr cls clear
 abbr ls eza
 abbr la 'eza -a'

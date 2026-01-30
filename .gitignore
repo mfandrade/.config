@@ -32,6 +32,9 @@ fish/fish_variables
 !git/
 !git/**
 
+!lazygit/
+!lazygit/**
+
 nvim/
 
 !regolith3/

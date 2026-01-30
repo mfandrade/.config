@@ -1,0 +1,19 @@
+gui:
+  theme:
+    # activeBorderColor:
+    #   - '#00ff00'       # Verde neon para a borda ativa
+    #   - bold
+    # inactiveBorderColor:
+    #   - '#565f89'       # Cinza azulado para bordas inativas
+    # optionsTextColor:
+    #   - '#7aa2f7'       # Cor das opções no rodapé
+    selectedLineBgColor:
+      - '#2e3c64'       # Cor de fundo da linha selecionada
+    # cherryPickedCommitBgColor:
+    #   - '#458588'
+    # cherryPickedCommitFgColor:
+    #   - '#83a598'
+    # unstagedChangesColor:
+    #   - red             # Cor para arquivos não preparados
+    # defaultFgColor:
+    #   - default         # Cor padrão do texto (herda do terminal)

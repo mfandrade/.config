@@ -95,6 +95,14 @@ function asdflatest
     set -l latest (test "$plugin" = java; and echo "latest:openjdk"; or echo latest)
     asdf install $plugin $latest && asdf set --home $plugin $latest
 end
+function asdfpurgeall
+    for p in (asdf plugin list | grep -Ev 'lua|java')
+        asdf install $p latest && asdf set --home $p latest
+        for v in (asdf list $p | grep -v '*')
+            asdf uninstall $p $v
+        end
+    end
+end
 function asdfupgradeall
     for p in (asdf plugin list | grep -Ev 'lua|java')
         asdf install $p latest && asdf set --home $p latest

@@ -28,6 +28,7 @@ alacritty/themes/
 !fish/
 !fish/**
 fish/fish_variables
+fish/conf.d/apikeys.fish
 
 !git/
 !git/**

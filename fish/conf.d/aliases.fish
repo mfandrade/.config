@@ -109,6 +109,14 @@ function asdfupgradeall
     end
 end
 
+# npm
+abbr ns 'npm start'
+abbr ni 'npm install'
+abbr nt 'npm run test'
+abbr na 'npm audit'
+abbr naf 'npm audit --fix'
+abbr nrt 'npm run test'
+abbr nrs 'npm run start'
 
 # apt
 abbr sapt 'sudo nala'

@@ -3,10 +3,10 @@
 # Atalhos rápidos: mude conforme sua necessidade
 # Exemplo: code.sh config -> vai direto para o nvim
 case $1 in
-"nvim")
+"nvim" | "vim" | "n" | "v")
   selected="$HOME/.config/nvim"
   ;;
-"tmux")
+"tmux" | "t")
   selected="$HOME/.config/tmux"
   ;;
 "ts")

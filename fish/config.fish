@@ -11,6 +11,8 @@ if status is-interactive
 
     set -x EZA_ICONS_AUTO yes
 
+    set -gx RIPGREP_CONFIG_PATH "$HOME/.config/ripgrep/config"
+
     set -g theme_nerd_fonts yes
     set -g theme_display_vi yes
     set -g theme_display_ruby no

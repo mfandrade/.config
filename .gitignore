@@ -42,6 +42,10 @@ nvim/
 regolith3/flags/
 regolith3/kanshi/
 
+!ripgrep/
+!ripgrep/**
+!ripgrep/config
+
 !tmux/
 !tmux/**
 tmux/plugins/

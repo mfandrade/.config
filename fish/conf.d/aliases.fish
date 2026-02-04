@@ -109,8 +109,10 @@ function asdfupgradeall
     end
 end
 
-abbr sudoapt 'sudo nala'
-abbr sudoaptu 'sudo nala update;'
-abbr sudoapti 'sudo nala update && sudo nala install'
-abbr sudoaptr 'sudo nala remove --autoremove'
-abbr sudoaptfs 'sudo apt-file search'
+
+# apt
+abbr sapt 'sudo nala'
+abbr saptu 'sudo nala update;'
+abbr sapti 'sudo nala update && sudo nala install'
+abbr saptr 'sudo nala remove --autoremove'
+abbr saptfs 'sudo apt-file search'

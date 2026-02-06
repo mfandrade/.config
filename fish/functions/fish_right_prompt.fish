@@ -73,8 +73,15 @@ function fish_right_prompt -d 'bobthefish is all about the right prompt'
     end
 
     set_color $fish_color_autosuggestion
-
     __bobthefish_cmd_duration
+
+    set_color 999999
     __bobthefish_timestamp
+
+    if set -q TMUX
+        set_color bbbbbb
+        echo -n "  "
+    end
+
     set_color normal
 end

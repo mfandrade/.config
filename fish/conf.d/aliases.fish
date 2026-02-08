@@ -90,14 +90,15 @@ abbr asdfl 'asdf list'
 abbr asdfla 'asdf list all'
 abbr asdlag 'asdf list all | grep'
 abbr asdfu 'asdf uninstall'
+abbr asdfset 'asdf set --home'
 function asdflatest
     set -l plugin $argv[1]
     set -l latest (test "$plugin" = java; and echo "latest:openjdk"; or echo latest)
     asdf install $plugin $latest && asdf set --home $plugin $latest
 end
 function asdfpurgeall
-    for p in (asdf plugin list | grep -Ev 'lua|java')
-        asdf install $p latest && asdf set --home $p latest
+    for p in (asdf plugin list | grep -Ev 'lua|java|neovim')
+        asdflatest $p
         for v in (asdf list $p | grep -v '*')
             asdf uninstall $p $v
         end

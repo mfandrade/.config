@@ -13,35 +13,22 @@ apply_theme() {
     local color_scheme=$3
     local alacritty_cfg=$4
 
-    if [ "$mode" = "on" ]; then
-        # MODO DARK: Cores vibrantes do Ayu Dark
-        fish_cmds="set -U theme_color_scheme dark;
-                   set -U fish_color_command 5fffff;
-                   set -U fish_color_param 87afff;
-                   set -U fish_color_quote ffd787;
-                   set -U fish_color_autosuggestion 767676;
-                   set -e LS_COLORS"
-    else
-        # MODO LIGHT: Cores densas para fundo branco
-        # Azul marinho para comandos, Ocre para strings, Cinza grafite para sugestões
-        fish_cmds="set -U theme_color_scheme light;
-                   set -U fish_color_command 0000D7 --bold;
-                   set -U fish_color_param 005f87;
-                   set -U fish_color_quote 875f00;
-                   set -U fish_color_autosuggestion 585858;
-                   set -Ux LS_COLORS '$LS_COLORS_LIGHT'"
-    fi
-
     # 1. Sistema e GTK
     gsettings set org.gnome.desktop.interface color-scheme "$color_scheme"
     gsettings set org.gnome.desktop.interface gtk-theme "$gtk_theme"
     sed -i "s/gtk-theme-name=.*/gtk-theme-name=$gtk_theme/" "$GTK3_SETTINGS"
 
-    # 2. Shell (Fish)
-    fish -c "$fish_cmds"
+    # 2. Shell
+    if [ "$mode" = "on" ]; then
+        set -e LS_COLORS
+    else
+        # No modo Light, removemos as cores customizadas e setamos LS_COLORS
+        set -Ux LS_COLORS '$LS_COLORS_LIGHT'
+    fi
 
-    # 3. Terminais
-    [ -f "$ALACRITTY_CONFIG" ] && sed -i "s/$([[ $mode == "on" ]] && echo "lite.toml" || echo "dark.toml")/$alacritty_cfg/" "$ALACRITTY_CONFIG"
+    # 3. Terminais (Alacritty)
+    local current_cfg=$([[ "$mode" == "on" ]] && echo "lite.toml" || echo "dark.toml")
+    [ -f "$ALACRITTY_CONFIG" ] && sed -i "s/$current_cfg/$alacritty_cfg/" "$ALACRITTY_CONFIG"
 
     # 4. Sincronização Wayland
     dbus-send --session --type=method_call --dest=org.freedesktop.impl.portal.desktop.gtk \
@@ -53,7 +40,17 @@ apply_theme() {
 }
 
 case "$1" in
-on) apply_theme "on" "Ayu-Dark" "prefer-dark" "dark.toml" "ayu_dark" ;;
-off) apply_theme "off" "Ayu" "prefer-light" "lite.toml" "ayu_light" ;;
-*) [ "$(cat "$STATE_FILE" 2>/dev/null)" = "on" ] && $0 off || $0 on ;;
+on)
+    apply_theme "on" "Ayu-Dark" "prefer-dark" "dark.toml"
+    ;;
+off)
+    apply_theme "off" "Ayu" "prefer-light" "lite.toml"
+    ;;
+*)
+    if [ "$(cat "$STATE_FILE" 2>/dev/null)" = "on" ]; then
+        $0 off
+    else
+        $0 on
+    fi
+    ;;
 esac

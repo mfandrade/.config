@@ -2,7 +2,6 @@
 
 STATE_FILE="$HOME/.cache/darkmode_state"
 ALACRITTY_CONFIG="$HOME/.config/alacritty/alacritty.toml"
-GHOSTTY_CONFIG="$HOME/.config/ghostty/config"
 GTK3_SETTINGS="$HOME/.config/gtk-3.0/settings.ini"
 
 # Cores LS_COLORS para alto contraste no modo LIGHT
@@ -13,7 +12,6 @@ apply_theme() {
     local gtk_theme=$2
     local color_scheme=$3
     local alacritty_cfg=$4
-    local ghostty_theme=$5
 
     if [ "$mode" = "on" ]; then
         # MODO DARK: Cores vibrantes do Ayu Dark
@@ -44,7 +42,6 @@ apply_theme() {
 
     # 3. Terminais
     [ -f "$ALACRITTY_CONFIG" ] && sed -i "s/$([[ $mode == "on" ]] && echo "lite.toml" || echo "dark.toml")/$alacritty_cfg/" "$ALACRITTY_CONFIG"
-    [ -f "$GHOSTTY_CONFIG" ] && sed -i "s/^theme = .*/theme = $ghostty_theme/" "$GHOSTTY_CONFIG"
 
     # 4. Sincronização Wayland
     dbus-send --session --type=method_call --dest=org.freedesktop.impl.portal.desktop.gtk \
@@ -52,7 +49,7 @@ apply_theme() {
         array:string:"org.gnome.desktop.interface" >/dev/null 2>&1
 
     echo "$mode" >"$STATE_FILE"
-    echo "Ambiente configurado para Modo $([[ $mode == "on" ]] && echo "DARK" || echo "LIGHT")"
+    echo "Dark mode is now ${mode^^}"
 }
 
 case "$1" in

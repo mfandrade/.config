@@ -96,17 +96,19 @@ function asdflatest
     set -l latest (test "$plugin" = java; and echo "latest:openjdk"; or echo latest)
     asdf install $plugin $latest && asdf set --home $plugin $latest
 end
-function asdfpurgeall
-    for p in (asdf plugin list | grep -Ev 'lua|java|neovim')
-        asdflatest $p
-        for v in (asdf list $p | grep -v '*')
-            asdf uninstall $p $v
-        end
-    end
-end
 function asdfupgradeall
-    for p in (asdf plugin list | grep -Ev 'lua|java')
-        asdf install $p latest && asdf set --home $p latest
+    set -l purge false
+    if contains -- --purge $argv
+        echo "Also purging old versions"
+        set purge true
+    end
+    for p in (asdf plugin list | grep -Ev 'lua|java|neovim|php')
+        asdflatest $p
+        if test "$purge" = true
+            for v in (asdf list $p | grep -v '*')
+                asdf uninstall $p $v
+            end
+        end
     end
 end
 

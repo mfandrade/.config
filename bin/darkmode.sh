@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 STATE_FILE="$HOME/.cache/darkmode_state"
 ALACRITTY_CONFIG="$HOME/.config/alacritty/alacritty.toml"
@@ -20,10 +20,10 @@ apply_theme() {
 
     # 2. Shell
     if [ "$mode" = "on" ]; then
-        set -e LS_COLORS
+        unset LS_COLORS
     else
         # No modo Light, removemos as cores customizadas e setamos LS_COLORS
-        set -Ux LS_COLORS '$LS_COLORS_LIGHT'
+        export LS_COLORS="$LS_COLORS_LIGHT"
     fi
 
     # 3. Terminais (Alacritty)

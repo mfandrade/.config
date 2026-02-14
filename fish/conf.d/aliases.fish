@@ -46,9 +46,11 @@ end
 function ctrlc
     set -l file $argv[1]
     if test -z "$file" -o ! -f "$file"
+        echo "File not found" >/dev/stderr
         return 2
     end
     if file -bL --mime "$file" | grep -q 'binary$'
+        echo "Binary file detected" >/dev/stderr
         return 1
     end
     if type -q wl-copy
@@ -56,6 +58,7 @@ function ctrlc
     else if type -q xsel
         xsel --clipboard <"$file"
     else
+        echo "No clipboard utility found" >/dev/stderr
         return 3
     end
 end

@@ -37,10 +37,9 @@ alias cat='bat -n'
 
 # bak
 function bak
-    if test (count $argv) -ne 1
-        return 1
+    for file in $argv
+        cp -iv $file "$file.bak"
     end
-    cp -iv $argv[1] "$argv[1].bak"
 end
 
 # ctrlc

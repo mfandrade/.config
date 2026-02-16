@@ -1,59 +1,67 @@
 #!/usr/bin/env bash
 
-# Atalhos rápidos: mude conforme sua necessidade
-# Exemplo: code.sh config -> vai direto para o nvim
 case $1 in
 "nvim" | "vim" | "n" | "v")
-  selected="$HOME/.config/nvim"
-  ;;
+    selected="$HOME/.config/nvim"
+    ;;
 "tmux" | "t")
-  selected="$HOME/.config/tmux"
-  ;;
+    selected="$HOME/.config/tmux"
+    ;;
 "ts")
-  selected="$HOME/src/typescript-for-developers/"
-  ;;
+    selected="$HOME/src/typescript-for-developers/"
+    ;;
 *)
-  # Se não houver argumento ou não bater com os atalhos, fzf
-  PROJECT_ROOTS=(
-    "$HOME/src"
-  )
+    PROJECT_ROOTS=(
+        "$HOME/work/"
+        "$HOME/src/"
+    )
 
-  # Filtro de erro: garante que diretórios inexistentes no array não quebrem o find
-  VALID_ROOTS=()
-  for root in "${PROJECT_ROOTS[@]}"; do
-    [[ -d "$root" ]] && VALID_ROOTS+=("$root")
-  done
+    VALID_ROOTS=()
+    for root in "${PROJECT_ROOTS[@]}"; do
+        [[ -d "$root" ]] && VALID_ROOTS+=("$root")
+    done
 
-  selected=$(find "${VALID_ROOTS[@]}" -mindepth 1 -maxdepth 1 -type d |
-    sort -r | fzf -d '/' --with-nth '-2..-1')
-  ;;
+    selected=$(find "${VALID_ROOTS[@]}" -mindepth 1 -maxdepth 1 -type d 2>/dev/null |
+        sort -r | fzf -d '/' --with-nth '-2..-1')
+    ;;
 esac
 
 if [[ -z $selected ]]; then
-  exit 0
+    exit 0
 fi
 
-# Garante path absoluto e resolve links simbólicos
 selected=$(realpath "$selected")
 tmux_name=$(basename "$selected" | tr . _)
-tmux_running=$(pgrep tmux)
 
-# Se o Tmux não está rodando, inicia a sessão e já entra nela
-if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then
-  tmux new-session -s "$tmux_name" -c "$selected"
-  exit 0
-fi
-
-# Se a sessão específica não existe, cria em background
-if ! tmux has-session -t="$tmux_name" 2>/dev/null; then
-  tmux new-session -ds "$tmux_name" -c "$selected"
-fi
-
-# Lógica de entrada/troca
+# 1. Se NÃO estamos no Tmux
 if [[ -z $TMUX ]]; then
-  # Se você está no terminal puro, anexa à sessão
-  tmux attach-session -t "$tmux_name"
-else
-  # Se você já está dentro do tmux, troca o cliente (o 'salto' instantâneo)
-  tmux switch-client -t "$tmux_name"
+    tmux_running=$(pgrep tmux)
+    # Se o servidor não existe, cria a primeira sessão
+    if [[ -z $tmux_running ]]; then
+        tmux new-session -s "$tmux_name" -c "$selected"
+    else
+        # Se o servidor existe, mas não estamos dentro, cria a sessão alvo se não existir e anexa
+        if ! tmux has-session -t="$tmux_name" 2>/dev/null; then
+            tmux new-session -ds "$tmux_name" -c "$selected"
+        fi
+        tmux attach-session -t "$tmux_name"
+    fi
+    exit 0
 fi
+
+# 2. Se JÁ ESTAMOS no Tmux
+# Não usamos attach ou new aqui para evitar o erro de aninhamento (nesting).
+# Apenas mudamos o diretório do painel atual e o diretório padrão da sessão atual.
+
+# Muda o diretório do painel atual imediatamente
+cd "$selected" || exit
+
+# Atualiza o diretório para novas janelas/painéis que você criar nesta sessão (Prefix + c)
+tmux set-option default-command "" 2>/dev/null # Limpa comandos residuais se houver
+tmux attach-session -t "$tmux_name" -c "$selected" 2>/dev/null || tmux set-environment -g CHERE_INVOKING 1
+
+# Opcional: Se você quiser renomear a sessão atual para o nome do novo projeto
+tmux rename-session "$tmux_name"
+
+# Executa o shell para que o CD persista (ou apenas finalize o script se ele foi chamado via 'source')
+exec $SHELL

@@ -1,6 +1,6 @@
 set -g theme_nerd_fonts yes
 set -g theme_newline_cursor yes
-set -g theme_display_vi no
+set -g theme_display_vi yes
 set -g theme_display_ruby no
 
 function bobthefish_colors -S -d 'Define a custom bobthefish color scheme'

@@ -119,8 +119,7 @@ end
 abbr ns 'npm start'
 abbr ni 'npm install'
 abbr nt 'npm run test'
-abbr na 'npm audit'
-abbr naf 'npm audit --fix'
+abbr naf 'npm audit fix'
 
 # apt
 abbr sapt 'sudo nala'

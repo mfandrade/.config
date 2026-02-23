@@ -1,4 +1,26 @@
 #!/usr/bin/env bash
+# ==============================================================================
+# SCRIPT:      session
+# DESCRIPTION: Context-aware tmux session manager.
+#              Automates the creation, attachment, and switching of tmux
+#              sessions based on project directory names. Supports explicit
+#              shorthand aliases and fuzzy-finding for dynamic navigation.
+#
+#              Inspired by ThePrimeagen's tmux-sessionizer.
+#
+# USAGE:       ./session [alias]
+#              Aliases: n|v|nvim|vim  -> Neovim config
+#                       t|tmux        -> Tmux config
+#                       (none)        -> Launches fzf to select from PROJECT_ROOTS
+#
+# REQUIREMENTS: tmux (>= 3.0 recommended), fzf, realpath, findutils
+#
+# LOGIC:
+#   1. Resolve target directory (via hardcoded alias or fzf search).
+#   2. Sanitize directory name for tmux session compatibility.
+#   3. If inside tmux: Switch client to target session (create if missing).
+#   4. If outside tmux: Attach to or create session and exec tmux.
+# ==============================================================================
 
 case $1 in
 "nvim" | "vim" | "n" | "v")
@@ -6,9 +28,6 @@ case $1 in
     ;;
 "tmux" | "t")
     selected="$HOME/.config/tmux"
-    ;;
-"ts")
-    selected="$HOME/src/typescript-for-developers/"
     ;;
 *)
     PROJECT_ROOTS=(

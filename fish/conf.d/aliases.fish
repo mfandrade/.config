@@ -26,6 +26,7 @@ abbr zz zi
 abbr lg lazygit
 abbr lr lazydocker
 abbr ffp firefoxpwa
+abbr cs cheat
 alias fd='fd -HI'
 alias rg='rg -.'
 

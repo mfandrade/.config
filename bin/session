@@ -51,6 +51,10 @@ getval() {
     local section="${2:-DEFAULT}"
     local val
     val=$(crudini --get "$rcfile" "$section" "$key" 2>/dev/null || true)
+    # Strip trailing comments and whitespace
+    val="${val%%#*}"
+    val="${val%"${val##*[![:space:]]}"}"
+
     # Expand tilde (~) if it's at the start of the value
     echo "${val/#\~/$HOME}"
 }

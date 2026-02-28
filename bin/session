@@ -59,17 +59,34 @@ PROJECT_ROOTS="$(getval project_roots)"
 DEFAULT_STARTUP="$(getval startup_command)"
 
 sections=$(getval)
+# Resolve target session
 selected=""
 startup_cmd=""
-for section in $sections; do
-    aliases=$(getval aliases "$section")
-    name=$(echo "$section" | cut -f2 -d.)
-    # Check if $1 matches name or is one of the space-separated aliases
-    if [[ -n "${1:-}" ]] && [[ " $aliases " == *" $1 "* || "$1" == "$name" ]]; then
-        selected=$(getval path "$section")
-        startup_cmd=$(getval startup_command "$section")
+
+# 1. Check if argument is already a valid directory
+if [[ -n "${1:-}" ]]; then
+    # Expand tilde manually for the directory check
+    expanded_arg="${1/#\~/$HOME}"
+    if [[ -d "$expanded_arg" ]]; then
+        selected="$expanded_arg"
     fi
-done
+fi
+
+# 2. Check aliases in config
+if [[ -z "$selected" && -n "$sections" ]]; then
+    for section in $sections; do
+        # Support both space and comma separated aliases
+        aliases=$(getval aliases "$section" | tr ',' ' ')
+        # Extract name: everything after the first dot (e.g., session.nvim -> nvim)
+        name="${section#*.}"
+
+        if [[ -n "${1:-}" ]] && [[ " $aliases " == *" $1 "* || "$1" == "$name" ]]; then
+            selected=$(getval path "$section")
+            startup_cmd=$(getval startup_command "$section")
+            break
+        fi
+    done
+fi
 
 if [[ -z "$selected" ]]; then
     if [[ -n "${1:-}" ]]; then

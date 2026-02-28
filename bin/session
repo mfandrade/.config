@@ -88,14 +88,20 @@ if [[ -z "$selected" && -n "$sections" ]]; then
     done
 fi
 
+# 3. Fallback to fzf
 if [[ -z "$selected" ]]; then
-    if [[ -n "${1:-}" ]]; then
-        # If an argument was provided but no alias matched, exit
-        exit 1
-    fi
-    # If no argument, launch fzf to select from PROJECT_ROOTS
-    if [[ -d "$PROJECT_ROOTS" ]]; then
-        selected=$(find "$PROJECT_ROOTS" -mindepth 1 -maxdepth 1 -type d | fzf --header="Select Session")
+    # If no argument or no alias match, launch fzf
+    # Supports multiple roots separated by spaces
+    valid_roots=()
+    # Fallback to $HOME if PROJECT_ROOTS is empty
+    for root in ${PROJECT_ROOTS:-$HOME}; do
+        expanded_root="${root/#\~/$HOME}"
+        [[ -d "$expanded_root" ]] && valid_roots+=("$expanded_root")
+    done
+
+    if [[ ${#valid_roots[@]} -gt 0 ]]; then
+        # Use $1 as the initial query for fzf if it didn't match an alias
+        selected=$(find "${valid_roots[@]}" -mindepth 1 -maxdepth 1 -type d | fzf --header="Select Session" --query="${1:-}")
     fi
 fi
 

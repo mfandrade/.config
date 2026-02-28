@@ -22,71 +22,78 @@
 #   4. If outside tmux: Attach to or create session and exec tmux.
 # ==============================================================================
 
-case $1 in
-"nvim" | "vim" | "n" | "v")
-    selected="$HOME/.config/nvim"
-    ;;
-"tmux" | "t")
-    selected="$HOME/.config/tmux"
-    ;;
-*)
-    PROJECT_ROOTS=(
-        "$HOME/work/"
-        "$HOME/src/"
-    )
+getval() {
+    rcfile="$HOME/.config/tmux/sessionrc"
+    key="${1:-''}"
+    section="${2:-DEFAULT}"
+    echo $(crudini --get "$rcfile" "$section" "$key")
+}
 
-    VALID_ROOTS=()
-    for root in "${PROJECT_ROOTS[@]}"; do
-        [[ -d "$root" ]] && VALID_ROOTS+=("$root")
-    done
+PROJECT_ROOTS="$(getval project_roots)"
+DEFAULT_STARTUP="$(getval startup_command)"
 
-    if [[ ${#VALID_ROOTS[@]} -eq 0 ]]; then
-        echo "No valid project roots defined." >&2
-        exit 1
-    fi
+echo $DEFAULT_STARTUP
 
-    selected=$(find "${VALID_ROOTS[@]}" -mindepth 1 -maxdepth 1 -type d 2>/dev/null |
-        sort -r | fzf -d '/' --with-nth '-2..-1')
-    ;;
-esac
-
-if [[ -z $selected ]]; then
-    exit 0
-fi
-
-selected=$(realpath "$selected")
-if [[ ! -d $selected ]]; then
-    echo "Selected path is not a directory: $selected" >&2
-    exit 1
-fi
-
-tmux_name=$(basename "$selected")
-tmux_name=${tmux_name//[^[:alnum:]_-]/_}
-
-if [[ -n ${TMUX:-} ]]; then
-    current_session=$(tmux display-message -p '#S' 2>/dev/null)
-    current_dir=$(realpath "$PWD" 2>/dev/null || printf '%s' "$PWD")
-
-    if [[ "$current_session" == "$tmux_name" ]]; then
-        if [[ "$current_dir" != "$selected" && "$current_dir" != "$selected/"* ]]; then
-            if [[ -n ${TMUX_PANE:-} ]]; then
-                tmux send-keys -t "$TMUX_PANE" "cd $(printf '%q' "$selected")" C-m
-            else
-                exec "${SHELL:-/bin/bash}" -lc "cd $(printf '%q' "$selected"); exec \"${SHELL:-/bin/bash}\""
-            fi
-        fi
-        exit 0
-    fi
-
-    if ! tmux has-session -t="$tmux_name" 2>/dev/null; then
-        tmux new-session -ds "$tmux_name" -c "$selected"
-    fi
-    tmux switch-client -t "$tmux_name"
-    exit 0
-fi
-
-if tmux has-session -t="$tmux_name" 2>/dev/null; then
-    exec tmux attach-session -t "$tmux_name"
-fi
-
-exec tmux new-session -s "$tmux_name" -c "$selected"
+# case $1 in
+# "nvim" | "vim" | "n" | "v")
+#     selected="$HOME/.config/nvim"
+#     ;;
+# "tmux" | "t")
+#     selected="$HOME/.config/tmux"
+#     ;;
+# *)
+#     VALID_ROOTS=()
+#     for root in "${PROJECT_ROOTS[@]}"; do
+#         [[ -d "$root" ]] && VALID_ROOTS+=("$root")
+#     done
+#
+#     if [[ ${#VALID_ROOTS[@]} -eq 0 ]]; then
+#         echo "No valid project roots defined." >&2
+#         exit 1
+#     fi
+#
+#     selected=$(find "${VALID_ROOTS[@]}" -mindepth 1 -maxdepth 1 -type d 2>/dev/null |
+#         sort -r | fzf -d '/' --with-nth '-2..-1')
+#     ;;
+# esac
+#
+# if [[ -z $selected ]]; then
+#     exit 0
+# fi
+#
+# selected=$(realpath "$selected")
+# if [[ ! -d $selected ]]; then
+#     echo "Selected path is not a directory: $selected" >&2
+#     exit 1
+# fi
+#
+# tmux_name=$(basename "$selected")
+# tmux_name=${tmux_name//[^[:alnum:]_-]/_}
+#
+# if [[ -n ${TMUX:-} ]]; then
+#     current_session=$(tmux display-message -p '#S' 2>/dev/null)
+#     current_dir=$(realpath "$PWD" 2>/dev/null || printf '%s' "$PWD")
+#
+#     if [[ "$current_session" == "$tmux_name" ]]; then
+#         if [[ "$current_dir" != "$selected" && "$current_dir" != "$selected/"* ]]; then
+#             if [[ -n ${TMUX_PANE:-} ]]; then
+#                 tmux send-keys -t "$TMUX_PANE" "cd $(printf '%q' "$selected")" C-m
+#             else
+#                 exec "${SHELL:-/bin/bash}" -lc "cd $(printf '%q' "$selected"); exec \"${SHELL:-/bin/bash}\""
+#             fi
+#         fi
+#         exit 0
+#     fi
+#
+#     if ! tmux has-session -t="$tmux_name" 2>/dev/null; then
+#         tmux new-session -ds "$tmux_name" -c "$selected"
+#     fi
+#     tmux switch-client -t "$tmux_name"
+#     exit 0
+# fi
+#
+# if tmux has-session -t="$tmux_name" 2>/dev/null; then
+#     exec tmux attach-session -t "$tmux_name"
+# fi
+#
+# exec tmux new-session -s "$tmux_name" -c "$selected"

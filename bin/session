@@ -39,7 +39,11 @@ getval() {
 
     # if both args are null, lists sections
     if [[ -z "${1:-}" && -z "${2:-}" ]]; then
-        echo $(crudini --get "$rcfile" | grep -v 'DEFAULT')
+        if [[ -f "$rcfile" ]]; then
+            # Extract section names between brackets, excluding DEFAULT
+            # crudini --get "$rcfile" 2>/dev/null | grep -v 'DEFAULT' || true
+            sed -n 's/^\[\(.*\)\]$/\1/p' "$rcfile" | grep -v 'DEFAULT' || true
+        fi
         return 0
     fi
     key="${1:-}"

@@ -32,8 +32,12 @@ for tool in crudini fzf tmux realpath; do
 done
 
 getval() {
-    rcfile="$HOME/.config/tmux/sessionrc"
-    # if both args are null, lists sessions
+    local rcfile="$HOME/.config/tmux/sessionrc"
+    if [[ ! -f "$rcfile" ]]; then
+        return 1
+    fi
+
+    # if both args are null, lists sections
     if [[ -z "${1:-}" && -z "${2:-}" ]]; then
         echo $(crudini --get "$rcfile" | grep -v 'DEFAULT')
         return 0

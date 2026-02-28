@@ -13,7 +13,7 @@ abbr cls clear
 abbr ls eza
 abbr la 'eza -a'
 abbr l 'eza -l'
-abbr t 'eza -T'
+# abbr t 'eza -T'
 abbr t1 'eza -T -L 1'
 abbr t2 'eza -T -L 2'
 abbr t3 'eza -T -L 3'

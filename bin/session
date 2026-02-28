@@ -46,9 +46,11 @@ getval() {
         fi
         return 0
     fi
-    key="${1:-}"
-    section="${2:-DEFAULT}"
-    val=$(crudini --get "$rcfile" "$section" "$key" 2>/dev/null)
+
+    local key="${1:-}"
+    local section="${2:-DEFAULT}"
+    local val
+    val=$(crudini --get "$rcfile" "$section" "$key" 2>/dev/null || true)
     # Expand tilde (~) if it's at the start of the value
     echo "${val/#\~/$HOME}"
 }

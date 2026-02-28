@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -eu
 # ==============================================================================
 # SCRIPT:      session
 # DESCRIPTION: Context-aware tmux session manager.

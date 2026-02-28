@@ -112,11 +112,6 @@ fi
 # Use session-specific startup command or fallback to default
 cmd="${startup_cmd:-$DEFAULT_STARTUP}"
 
-# Resolve relative paths against PROJECT_ROOTS if not absolute
-if [[ "$selected" != /* && "$selected" != ~* ]]; then
-    selected="$PROJECT_ROOTS/$selected"
-fi
-
 selected=$(realpath "$selected")
 if [[ ! -d $selected ]]; then
     echo "Selected path is not a directory: $selected" >&2

@@ -23,6 +23,14 @@ set -eu
 #   4. If outside tmux: Attach to or create session and exec tmux.
 # ==============================================================================
 
+# Dependency checks
+for tool in crudini fzf tmux realpath; do
+    if ! command -v "$tool" >/dev/null 2>&1; then
+        echo "Error: Required tool '$tool' not found." >&2
+        exit 1
+    fi
+done
+
 getval() {
     rcfile="$HOME/.config/tmux/sessionrc"
     # if both args are null, lists sessions

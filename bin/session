@@ -4,10 +4,14 @@ set -eu
 # SCRIPT:      session (POSIX sh version)
 # ==============================================================================
 
+err() {
+    echo "Error: ${1:no-error-message}" >&2
+    exit 1
+}
+
 for tool in crudini fzf tmux realpath; do
     if ! command -v "$tool" >/dev/null 2>&1; then
-        echo "Error: Required tool '$tool' not installed." >&2
-        exit 1
+        err "Required tool '$tool' not installed."
     fi
 done
 
@@ -42,10 +46,10 @@ startup_cmd=""
 
 # 1. Check if argument is already a valid directory
 if [ -n "${1:-}" ]; then
-    expanded_arg=$(echo "$1" | sed "s,^~,$HOME,")
+    selected=$(echo "$1" | sed "s,^~,$HOME,")
 
-    if [ -d "$expanded_arg" ]; then
-        selected="$expanded_arg"
+    if [ ! -d "$selected" ]; then
+        err "Informed dir does not exist: $selected"
     fi
 fi
 
@@ -53,7 +57,7 @@ fi
 if [ -z "$selected" ] && [ -n "$sections" ]; then
     for section in $sections; do
         aliases=$(getval aliases "$section" | tr ',' ' ')
-        name="${section#*.}"
+        name="${section#*.}" # $(echo "$section" | sed 's/.*\.//')
 
         if [ -n "${1:-}" ]; then
             if echo " $aliases " | grep -q " $1 " || [ "$1" = "$name" ]; then
@@ -89,8 +93,7 @@ cmd="${startup_cmd:-$DEFAULT_STARTUP}"
 selected=$(realpath "$selected")
 
 if [ ! -d "$selected" ]; then
-    echo "Selected path is not a directory: $selected" >&2
-    exit 1
+    err "Informed dir does not exist: $selected"
 fi
 
 # Sanitize tmux name

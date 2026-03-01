@@ -1,147 +1,123 @@
-#!/usr/bin/env bash
+#!/bin/sh
 set -eu
 # ==============================================================================
-# SCRIPT:      session
-# DESCRIPTION: Context-aware tmux session manager.
-#              Automates the creation, attachment, and switching of tmux
-#              sessions based on project directory names. Supports explicit
-#              shorthand aliases and fuzzy-finding for dynamic navigation.
-#
-#              Inspired by ThePrimeagen's tmux-sessionizer.
-#
-# USAGE:       ./session [alias]
-#              Aliases: n|v|nvim|vim  -> Neovim config
-#                       t|tmux        -> Tmux config
-#                       (none)        -> Launches fzf to select from PROJECT_ROOTS
-#
-# REQUIREMENTS: tmux (>= 3.0 recommended), fzf, realpath, findutils
-#
-# LOGIC:
-#   1. Resolve target directory (via hardcoded alias or fzf search).
-#   2. Sanitize directory name for tmux session compatibility.
-#   3. If inside tmux: Switch client to target session (create if missing).
-#   4. If outside tmux: Attach to or create session and exec tmux.
+# SCRIPT:      session (POSIX sh version)
 # ==============================================================================
 
-# Dependency checks
 for tool in crudini fzf tmux realpath; do
     if ! command -v "$tool" >/dev/null 2>&1; then
-        echo "Error: Required tool '$tool' not found." >&2
+        echo "Error: Required tool '$tool' not installed." >&2
         exit 1
     fi
 done
 
 getval() {
-    local rcfile="$HOME/.config/tmux/sessionrc"
-    if [[ ! -f "$rcfile" ]]; then
-        return 1
+    _rcfile="$HOME/.config/tmux/sessionrc"
+    [ ! -f "$_rcfile" ] && return 1
+
+    if [ -z "${1:-}" ] && [ -z "${2:-}" ]; then
+        _re_squaredbrackets='s/^\[\(.*\)\]$/\1/p'
+        sed -n "$_re_squaredbrackets" "$_rcfile" || true
+        exit 0
     fi
 
-    # if both args are null, lists sections
-    if [[ -z "${1:-}" && -z "${2:-}" ]]; then
-        if [[ -f "$rcfile" ]]; then
-            # Extract section names between brackets, excluding DEFAULT
-            # crudini --get "$rcfile" 2>/dev/null | grep -v 'DEFAULT' || true
-            sed -n 's/^\[\(.*\)\]$/\1/p' "$rcfile" | grep -v 'DEFAULT' || true
-        fi
-        return 0
-    fi
+    _key="${1:-}"
+    _section="${2:-DEFAULT}"
+    _val=$(crudini --get "$_rcfile" "$_section" "$_key" 2>/dev/null || true)
 
-    local key="${1:-}"
-    local section="${2:-DEFAULT}"
-    local val
-    val=$(crudini --get "$rcfile" "$section" "$key" 2>/dev/null || true)
-    # Strip trailing comments and whitespace
-    val="${val%%#*}"
-    val="${val%"${val##*[![:space:]]}"}"
-
-    # Expand tilde (~) if it's at the start of the value
-    echo "${val/#\~/$HOME}"
+    _re_remove_comments_spaces='s/[[:space:]]*#.*$//; s/[[:space:]]*$//'
+    _re_remove_single_double_quotes="s/^['\"]//; s/['\"]$//"
+    _val=$(echo "$_val" | sed "$_re_remove_comments_spaces")
+    _val=$(echo "$_val" | sed "$_re_remove_single_double_quotes")
+    _val=$(echo "$_val" | sed "s,^~,$HOME,")
 }
 
 PROJECT_ROOTS="$(getval project_roots)"
 DEFAULT_STARTUP="$(getval startup_command)"
-
 sections=$(getval)
-# Resolve target session
 selected=""
 startup_cmd=""
 
 # 1. Check if argument is already a valid directory
-if [[ -n "${1:-}" ]]; then
-    # Expand tilde manually for the directory check
-    expanded_arg="${1/#\~/$HOME}"
-    if [[ -d "$expanded_arg" ]]; then
+if [ -n "${1:-}" ]; then
+    case "$1" in
+    ~*) expanded_arg="$HOME${1#~}" ;;
+    *) expanded_arg="$1" ;;
+    esac
+
+    if [ -d "$expanded_arg" ]; then
         selected="$expanded_arg"
     fi
 fi
 
 # 2. Check aliases in config
-if [[ -z "$selected" && -n "$sections" ]]; then
+if [ -z "$selected" ] && [ -n "$sections" ]; then
     for section in $sections; do
-        # Support both space and comma separated aliases
         aliases=$(getval aliases "$section" | tr ',' ' ')
-        # Extract name: everything after the first dot (e.g., session.nvim -> nvim)
         name="${section#*.}"
 
-        if [[ -n "${1:-}" ]] && [[ " $aliases " == *" $1 "* || "$1" == "$name" ]]; then
-            selected=$(getval path "$section")
-            startup_cmd=$(getval startup_command "$section")
-            break
+        if [ -n "${1:-}" ]; then
+            if echo " $aliases " | grep -q " $1 " || [ "$1" = "$name" ]; then
+                selected=$(getval path "$section")
+                startup_cmd=$(getval startup_command "$section")
+                break
+            fi
         fi
     done
 fi
 
 # 3. Fallback to fzf
-if [[ -z "$selected" ]]; then
-    # If no argument or no alias match, launch fzf
-    # Supports multiple roots separated by spaces
-    valid_roots=()
-    # Fallback to $HOME if PROJECT_ROOTS is empty
-    for root in ${PROJECT_ROOTS:-$HOME}; do
-        [[ -d "$root" ]] && valid_roots+=("$root")
+if [ -z "$selected" ]; then
+    _roots="${PROJECT_ROOTS:-$HOME}"
+    _valid_roots=""
+    for _r in $_roots; do
+        # Expansão de tilde para cada root
+        case "$_r" in ~*) _r="$HOME${_r#~}" ;; esac
+        [ -d "$_r" ] && _valid_roots="$_valid_roots $_r"
     done
 
-    if [[ ${#valid_roots[@]} -gt 0 ]]; then
-        # Use $1 as the initial query for fzf if it didn't match an alias
-        selected=$(find "${valid_roots[@]}" -mindepth 1 -maxdepth 1 -type d | sed "s|^$HOME|~|" | fzf --header="Select Session" --query="${1:-}")
+    if [ -n "$_valid_roots" ]; then
+        # shellcheck disable=SC2086
+        selected=$(find $_valid_roots -mindepth 1 -maxdepth 1 -type d 2>/dev/null | fzf --header="Select Session" --query="${1:-}")
     fi
 fi
 
-if [[ -z "$selected" ]]; then
+if [ -z "$selected" ]; then
     exit 0
 fi
 
-# Use session-specific startup command or fallback to default
 cmd="${startup_cmd:-$DEFAULT_STARTUP}"
-
 selected=$(realpath "$selected")
-if [[ ! -d $selected ]]; then
+
+if [ ! -d "$selected" ]; then
     echo "Selected path is not a directory: $selected" >&2
     exit 1
 fi
 
-tmux_name=$(basename "$selected")
-tmux_name=${tmux_name//[^[:alnum:]_-]/_}
+# Sanitize tmux name
+tmux_name=$(basename "$selected" | sed 's/[^[:alnum:]_-]/_/g')
 
-if [[ -n ${TMUX:-} ]]; then
+if [ -n "${TMUX:-}" ]; then
     current_session=$(tmux display-message -p '#S' 2>/dev/null)
     current_dir=$(realpath "$PWD" 2>/dev/null || printf '%s' "$PWD")
 
-    if [[ "$current_session" == "$tmux_name" ]]; then
-        if [[ "$current_dir" != "$selected" && "$current_dir" != "$selected/"* ]]; then
-            if [[ -n ${TMUX_PANE:-} ]]; then
-                tmux send-keys -t "$TMUX_PANE" "cd $(printf '%q' "$selected")" C-m
-            else
-                exec "${SHELL:-/bin/bash}" -lc "cd $(printf '%q' "$selected"); exec \"${SHELL:-/bin/bash}\""
+    if [ "$current_session" = "$tmux_name" ]; then
+        case "$current_dir" in
+        "$selected" | "$selected/"*) ;;
+        *)
+            if [ -n "${TMUX_PANE:-}" ]; then
+                # Using printf %q for safe quoting
+                _safe_path=$(printf '%s' "$selected" | sed "s/'/'\\\\''/g; 1s/^/'/; \$s/\$/'/")
+                tmux send-keys -t "$TMUX_PANE" "cd $_safe_path" C-m
             fi
-        fi
+            ;;
+        esac
         exit 0
     fi
 
     if ! tmux has-session -t="$tmux_name" 2>/dev/null; then
         tmux new-session -ds "$tmux_name" -c "$selected"
-        if [[ -n "$cmd" ]]; then
+        if [ -n "$cmd" ]; then
             tmux send-keys -t "$tmux_name" "$cmd" C-m
         fi
     fi
@@ -153,7 +129,7 @@ if tmux has-session -t="$tmux_name" 2>/dev/null; then
     exec tmux attach-session -t "$tmux_name"
 fi
 
-if [[ -n "$cmd" ]]; then
+if [ -n "$cmd" ]; then
     exec tmux new-session -s "$tmux_name" -c "$selected" "$cmd"
 else
     exec tmux new-session -s "$tmux_name" -c "$selected"

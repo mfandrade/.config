@@ -20,8 +20,8 @@ getval() {
         sed -n "$_re_squaredbrackets" "$_rcfile" || true
         exit 0
     fi
-
     _key="${1:-}"
+
     _section="${2:-DEFAULT}"
     _val=$(crudini --get "$_rcfile" "$_section" "$_key" 2>/dev/null || true)
 
@@ -30,20 +30,19 @@ getval() {
     _val=$(echo "$_val" | sed "$_re_remove_comments_spaces")
     _val=$(echo "$_val" | sed "$_re_remove_single_double_quotes")
     _val=$(echo "$_val" | sed "s,^~,$HOME,")
+
+    echo "$_val"
 }
 
-PROJECT_ROOTS="$(getval project_roots)"
-DEFAULT_STARTUP="$(getval startup_command)"
+PROJECT_ROOTS=$(getval 'project_roots')
+DEFAULT_STARTUP=$(getval 'startup_command')
 sections=$(getval)
 selected=""
 startup_cmd=""
 
 # 1. Check if argument is already a valid directory
 if [ -n "${1:-}" ]; then
-    case "$1" in
-    ~*) expanded_arg="$HOME${1#~}" ;;
-    *) expanded_arg="$1" ;;
-    esac
+    expanded_arg=$(echo "$1" | sed "s,^~,$HOME,")
 
     if [ -d "$expanded_arg" ]; then
         selected="$expanded_arg"

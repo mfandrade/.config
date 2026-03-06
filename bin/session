@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # set -eu
 # ==============================================================================
 # SCRIPT:      session (POSIX sh version)
@@ -48,99 +48,106 @@ sections=$(getval)
 selected=""
 startup_cmd=""
 
-# 1. Check if argument is already a valid directory
-if [ -n "${1:-}" ]; then
-    _selected=$(echo "$1" | sed "s,^~,$HOME,")
+main() {
 
-    if [ -d "$_selected" ]; then
-        selected="$_selected"
-    fi
-fi
+    # 1. Check if argument is already a valid directory
+    if [ -n "${1:-}" ]; then
+        _selected=$(echo "$1" | sed "s,^~,$HOME,")
 
-# 2. Check aliases in config
-if [ -z "$selected" ] && [ -n "$sections" ]; then
-    for section in $sections; do
-        aliases=$(getval aliases "$section" | tr ',' ' ')
-        name="${section#*.}" # $(echo "$section" | sed 's/.*\.//')
-
-        if [ -n "${1:-}" ]; then
-            if echo " $aliases " | grep -q " $1 " || [ "$1" = "$name" ]; then
-                selected=$(getval path "$section")
-                startup_cmd=$(getval startup_command "$section")
-                break
-            fi
+        if [ -d "$_selected" ]; then
+            selected="$_selected"
         fi
-    done
-fi
-
-# 3. Fallback to fzf
-if [ -z "$selected" ]; then
-    _roots="${PROJECT_ROOTS:-$HOME}"
-    _valid_roots=""
-    for _r in $_roots; do
-        # Expansão de tilde para cada root
-        case "$_r" in ~*) _r="$HOME${_r#~}" ;; esac
-        [ -d "$_r" ] && _valid_roots="$_valid_roots $_r"
-    done
-
-    if [ -n "$_valid_roots" ]; then
-        # shellcheck disable=SC2086
-        selected=$(find $_valid_roots -mindepth 1 -maxdepth 1 -type d 2>/dev/null | fzf --header="Select Session" --query="${1:-}")
     fi
-fi
 
-if [ -z "$selected" ] && [ -n "${1:-}" ]; then
-    err "Informed dir or alias does not exist: $1"
-fi
+    # 2. Check aliases in config
+    if [ -z "$selected" ] && [ -n "$sections" ]; then
+        for section in $sections; do
+            aliases=$(getval aliases "$section" | tr ',' ' ')
+            name="${section#*.}" # $(echo "$section" | sed 's/.*\.//')
 
-if [ -z "$selected" ]; then
-    exit 0
-fi
-
-cmd="${startup_cmd:-$DEFAULT_STARTUP}"
-selected=$(realpath "$selected")
-
-if [ ! -d "$selected" ]; then
-    err "Informed dir does not exist: $selected"
-fi
-
-# Sanitize tmux name
-tmux_name=$(basename "$selected" | sed 's/[^[:alnum:]_-]/_/g')
-
-if [ -n "${TMUX:-}" ]; then
-    current_session=$(tmux display-message -p '#S' 2>/dev/null)
-    current_dir=$(realpath "$PWD" 2>/dev/null || printf '%s' "$PWD")
-
-    if [ "$current_session" = "$tmux_name" ]; then
-        case "$current_dir" in
-        "$selected" | "$selected/"*) ;;
-        *)
-            if [ -n "${TMUX_PANE:-}" ]; then
-                # Using printf %q for safe quoting
-                _safe_path=$(printf '%s' "$selected" | sed "s/'/'\\\\''/g; 1s/^/'/; \$s/\$/'/")
-                tmux send-keys -t "$TMUX_PANE" "cd $_safe_path" C-m
+            if [ -n "${1:-}" ]; then
+                if echo " $aliases " | grep -q " $1 " || [ "$1" = "$name" ]; then
+                    selected=$(getval path "$section")
+                    startup_cmd=$(getval startup_command "$section")
+                    break
+                fi
             fi
-            ;;
-        esac
+        done
+    fi
+
+    # 3. Fallback to fzf
+    if [ -z "$selected" ]; then
+        _roots="${PROJECT_ROOTS:-$HOME}"
+        _valid_roots=""
+        for _r in $_roots; do
+            # Expansão de tilde para cada root
+            case "$_r" in ~*) _r="$HOME${_r#~}" ;; esac
+            [ -d "$_r" ] && _valid_roots="$_valid_roots $_r"
+        done
+
+        if [ -n "$_valid_roots" ]; then
+            # shellcheck disable=SC2086
+            selected=$(find $_valid_roots -mindepth 1 -maxdepth 1 -type d 2>/dev/null | fzf --header="Select Session" --query="${1:-}")
+        fi
+    fi
+
+    if [ -z "$selected" ] && [ -n "${1:-}" ]; then
+        err "Informed dir or alias does not exist: $1"
+    fi
+
+    if [ -z "$selected" ]; then
         exit 0
     fi
 
-    if ! tmux has-session -t="$tmux_name" 2>/dev/null; then
-        tmux new-session -ds "$tmux_name" -c "$selected"
-        if [ -n "$cmd" ]; then
-            tmux send-keys -t "$tmux_name" "$cmd" C-m
-        fi
+    cmd="${startup_cmd:-$DEFAULT_STARTUP}"
+    selected=$(realpath "$selected")
+
+    if [ ! -d "$selected" ]; then
+        err "Informed dir does not exist: $selected"
     fi
-    tmux switch-client -t "$tmux_name"
-    exit 0
-fi
 
-if tmux has-session -t="$tmux_name" 2>/dev/null; then
-    exec tmux attach-session -t "$tmux_name"
-fi
+    # Sanitize tmux name
+    tmux_name=$(basename "$selected" | sed 's/[^[:alnum:]_-]/_/g')
 
-if [ -n "$cmd" ]; then
-    exec tmux new-session -s "$tmux_name" -c "$selected" "$cmd"
-else
-    exec tmux new-session -s "$tmux_name" -c "$selected"
+    if [ -n "${TMUX:-}" ]; then
+        current_session=$(tmux display-message -p '#S' 2>/dev/null)
+        current_dir=$(realpath "$PWD" 2>/dev/null || printf '%s' "$PWD")
+
+        if [ "$current_session" = "$tmux_name" ]; then
+            case "$current_dir" in
+            "$selected" | "$selected/"*) ;;
+            *)
+                if [ -n "${TMUX_PANE:-}" ]; then
+                    # Using printf %q for safe quoting
+                    _safe_path=$(printf '%s' "$selected" | sed "s/'/'\\\\''/g; 1s/^/'/; \$s/\$/'/")
+                    tmux send-keys -t "$TMUX_PANE" "cd $_safe_path" C-m
+                fi
+                ;;
+            esac
+            exit 0
+        fi
+
+        if ! tmux has-session -t="$tmux_name" 2>/dev/null; then
+            tmux new-session -ds "$tmux_name" -c "$selected"
+            if [ -n "$cmd" ]; then
+                tmux send-keys -t "$tmux_name" "$cmd" C-m
+            fi
+        fi
+        tmux switch-client -t "$tmux_name"
+        exit 0
+    fi
+
+    if tmux has-session -t="$tmux_name" 2>/dev/null; then
+        exec tmux attach-session -t "$tmux_name"
+    fi
+
+    if [ -n "$cmd" ]; then
+        exec tmux new-session -s "$tmux_name" -c "$selected" "$cmd"
+    else
+        exec tmux new-session -s "$tmux_name" -c "$selected"
+    fi
+}
+
+if [ "$0" = "$BASH_SOURCE" ] ; then
+    main "$@"
 fi

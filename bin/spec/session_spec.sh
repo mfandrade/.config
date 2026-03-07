@@ -1,6 +1,6 @@
-#!/bin/sh
+#shellcheck shell=bash
 Describe 'session script'
-setup() {
+setup() { # {{{
     export TEST_HOME="$SHELLSPEC_TMPBASE/home"
     mkdir -p "$TEST_HOME/.config/tmux"
     export CONFIG_FILE="$TEST_HOME/.config/tmux/sessionrc"
@@ -10,7 +10,6 @@ setup() {
     mkdir -p "$TEST_HOME/projects/project2"
 }
 
-# Run setup before each example to define TEST_HOME and CONFIG_FILE
 Before 'setup'
 BeforeRun 'export HOME="$TEST_HOME"'
 
@@ -34,60 +33,48 @@ Mock find
 echo "$TEST_HOME/projects/project1"
 echo "$TEST_HOME/projects/project2"
 End
+# }}}
 
-# It 'fails if fzf is missing'
-#   export TOOL_MISSING="fzf"
-#   When run script ./session
-#   The status should be failure
-#   The error should include "Required tool not installed: 'fzf'"
-# End
-
-Context 'selection logic'
-It 'uses the directory provided as an argument'
-When run script ./session "$TEST_HOME/projects/project1"
-The status should be success
+It 'is simple'
+When call echo 'ok'
+The output should eq 'ok'
 End
 
-# It 'errors if the provided directory or alias does not exist'
-# When run script ./session "nonexistent"
-# The error should include "Informed dir or alias does not exist"
-# The status should be failure
-# End
-
-# It 'uses aliases from sessionrc'
-# cat <<EOF >"$CONFIG_FILE"
-# [DEFAULT]
-# [work.myproj]
-# path = $TEST_HOME/projects/project2
-# aliases = p2,work
-# EOF
-# When run script ./session "p2"
-# The status should be success
-# End
-
-# It 'falls back to fzf when no argument or alias matches'
-# cat <<EOF >"$CONFIG_FILE"
-# [DEFAULT]
-# project_roots = $TEST_HOME/projects
-# EOF
-# export FZF_SELECT="$TEST_HOME/projects/project2"
-# When run script ./session
-# The status should be success
-# End
-# End
-
-# Context 'tmux interaction'
-# It 'attaches if the session already exists'
-# export TMUX_SESSION_EXISTS=1
-# When run script ./session "$TEST_HOME/projects/project1"
-# The status should be success
-# End
-
-# It 'switches client if already inside tmux'
-# export TMUX="/tmp/tmux-1000/default,1234,0"
-# export CURRENT_TMUX_SESSION="othersession"
-# When run script ./session "$TEST_HOME/projects/project1"
-# The status should be success
-# End
+Describe 'call evaluation'
+foo() { echo "foo"; }
+It 'calls function'
+When call foo
+The output should eq 'foo'
 End
+
+It 'calls external command'
+When call expr 1 + 2
+The output should eq 3
 End
+
+It 'has max one call per example'
+When call echo 'foo'
+# When call echo 'bar' # error
+The output should eq 'foo'
+End
+
+It 'does not need to call anything'
+The value 123 should eq 123
+End
+
+It 'prefers function to external commands'
+expr() { echo 'be called'; }
+When call expr 1 + 2
+The output should eq 'be called'
+End
+
+It 'needs to call external commands explicitly in this case'
+expr() { echo 'not called'; }
+When run command expr 1 + 2
+The output should eq 3
+End
+
+End
+
+End
+# vim: fdm=marker

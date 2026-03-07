@@ -42,13 +42,12 @@ getval() {
     echo "$_val"
 }
 
-PROJECT_ROOTS=$(getval 'project_roots')
-DEFAULT_STARTUP=$(getval 'startup_command')
-sections=$(getval)
-selected=""
-startup_cmd=""
-
 main() {
+    PROJECT_ROOTS=$(getval 'project_roots')
+    DEFAULT_STARTUP=$(getval 'startup_command')
+    sections=$(getval)
+    selected=""
+    startup_cmd=""
 
     # 1. Check if argument is already a valid directory
     if [ -n "${1:-}" ]; then
@@ -148,6 +147,6 @@ main() {
     fi
 }
 
-if [ "$0" = "$BASH_SOURCE" ] ; then
-    main "$@"
-fi
+[[ ${BASH_SOURCE[0]} = $0 ]] && main "$@"
+
+# vim: ts=4 sts=4 sw=4

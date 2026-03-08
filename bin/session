@@ -34,9 +34,7 @@ getval() {
     fi
 
     _re_remove_comments_spaces='s/[[:space:]]*#.*$//; s/[[:space:]]*$//'
-    _re_remove_single_double_quotes="s/^['\"]//; s/['\"]$//"
     _val=$(echo "$_val" | sed "$_re_remove_comments_spaces")
-    _val=$(echo "$_val" | sed "$_re_remove_single_double_quotes")
     _val=$(echo "$_val" | sed "s,^~,$HOME,")
 
     echo "$_val"

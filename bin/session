@@ -87,7 +87,7 @@ main() {
 
         if [ -n "$_valid_roots" ]; then
             # shellcheck disable=SC2086
-            selected=$(find $_valid_roots -mindepth 1 -maxdepth 1 -type d 2>/dev/null | fzf --header="Select Session" --query="${1:-}")
+            selected=$(find $_valid_roots -mindepth 1 -maxdepth 1 -type d 2>/dev/null | sed "s|^$HOME|~|" | fzf --header="Select Session" --query="${1:-}")
         fi
     fi
 
@@ -100,6 +100,8 @@ main() {
     fi
 
     cmd="${startup:-$STARTUP}"
+    # Expand ~ to $HOME before resolving real path
+    selected=$(echo "$selected" | sed "s,^~,$HOME,")
     selected=$(realpath "$selected")
 
     if [ ! -d "$selected" ]; then

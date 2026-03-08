@@ -5,7 +5,6 @@ startup = nvim
 [nvim]
 alias = vim n v
 path = ~/.config/nvim 
-#startup = the default one
 
 [tmuxconf]
 alias = t
@@ -16,3 +15,12 @@ startup = nvim tmux.conf
 alias = g
 path = ~
 startup = gemini
+
+[session-script]
+alias = s
+path = ~/bin 
+startup = nvim session
+
+[golang-testing]
+path = /home/mfandrad/src/golang-testing/
+startup = nvim mergesort_test.go  -c ':TestSuite<CR>'

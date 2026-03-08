@@ -117,14 +117,14 @@ function asdfupgradeall
 end
 
 # npm
-abbr ns 'npm start'
 abbr ni 'npm install'
-abbr nt 'npm run test'
+abbr ns 'npm start'
+abbr nrt 'npm run test'
 abbr naf 'npm audit fix'
 
 # apt
-abbr sapt 'sudo nala'
-abbr saptu 'sudo nala update;'
-abbr sapti 'sudo nala update && sudo nala install'
-abbr saptr 'sudo nala remove --autoremove'
+abbr sapt 'sudo apt'
+abbr saptu 'sudo apt update;'
+abbr sapti 'sudo apt update && sudo apt install'
+abbr saptr 'sudo apt remove --autoremove'
 abbr saptfs 'sudo apt-file search'

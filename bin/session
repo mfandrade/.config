@@ -43,11 +43,11 @@ getval() {
 }
 
 main() {
-    PROJECT_ROOTS=$(getval 'project_roots')
-    DEFAULT_STARTUP=$(getval 'startup_command')
+    ROOTS=$(getval 'roots')
+    STARTUP=$(getval 'startup')
     sections=$(getval)
     selected=""
-    startup_cmd=""
+    startup=""
 
     # 1. Check if argument is already a valid directory
     if [ -n "${1:-}" ]; then
@@ -61,13 +61,14 @@ main() {
     # 2. Check aliases in config
     if [ -z "$selected" ] && [ -n "$sections" ]; then
         for section in $sections; do
-            aliases=$(getval aliases "$section" | tr ',' ' ')
-            name="${section#*.}" # $(echo "$section" | sed 's/.*\.//')
+            alias=$(getval alias "$section" | tr ',' ' ')
+            # name="${section#*.}" # $(echo "$section" | sed 's/.*\.//')
+            name="$section"
 
             if [ -n "${1:-}" ]; then
-                if echo " $aliases " | grep -q " $1 " || [ "$1" = "$name" ]; then
+                if echo " $alias " | grep -q " $1 " || [ "$1" = "$name" ]; then
                     selected=$(getval path "$section")
-                    startup_cmd=$(getval startup_command "$section")
+                    startup=$(getval startup "$section")
                     break
                 fi
             fi
@@ -76,7 +77,7 @@ main() {
 
     # 3. Fallback to fzf
     if [ -z "$selected" ]; then
-        _roots="${PROJECT_ROOTS:-$HOME}"
+        _roots="${ROOTS:-$HOME}"
         _valid_roots=""
         for _r in $_roots; do
             # Expansão de tilde para cada root
@@ -98,7 +99,7 @@ main() {
         exit 0
     fi
 
-    cmd="${startup_cmd:-$DEFAULT_STARTUP}"
+    cmd="${startup:-$STARTUP}"
     selected=$(realpath "$selected")
 
     if [ ! -d "$selected" ]; then

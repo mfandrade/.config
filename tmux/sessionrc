@@ -1,13 +1,18 @@
 [DEFAULT]
-project_roots = ~/src
-startup_command = nvim
+roots = ~/src
+startup = nvim
 
 [nvim]
-aliases = vim n v
-path = ~/.config/nvim # relative to projects_roots if ommited
-# startup_command = the default one
+alias = vim n v
+path = ~/.config/nvim 
+#startup = the default one
 
 [tmuxconf]
-aliases = t
+alias = t
 path = ~/.config/tmux
-startup_command = "nvim tmux.conf"
+startup = nvim tmux.conf
+
+[Gemini]
+alias = g
+path = ~
+startup = gemini

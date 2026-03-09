@@ -53,19 +53,19 @@ main() {
         _arg_path=$(echo "$1" | sed "s,^~,$HOME,")
         if [ -d "$_arg_path" ]; then
             selected_path="$_arg_path"
-            session_name=$(basename "$selected_path" | sed 's/[^[:alnum:]_-]/_/g') # Use basename if arg is a direct path
+            session_name=$(basename "$selected_path" | sed 's,[^[:alnum:]_-],_,g') # Use basename if arg is a direct path
         fi
     fi
 
     # 2. Check aliases in config if no direct path was found or arg was not a valid dir
     if [ -z "$selected_path" ] && [ -n "$sections" ]; then
         for section in $sections; do
-            alias=$(getval alias "$section" | tr ',' ' ')
+            alias=$(getval alias "$section" | tr "," " ")
             # Check if the provided argument matches an alias or the section name itself
             if [ -n "${1:-}" ] && (echo " $alias " | grep -q " $1 " || [ "$1" = "$section" ]); then
+                selected_startup=$(getval startup "$section")
                 selected_path=$(getval path "$section")
-                selected_startup=$(getval startup "$section") # Get startup for this specific section
-                session_name="$section"                       # Use the section name as the session name
+                session_name="$section"
                 break
             fi
         done

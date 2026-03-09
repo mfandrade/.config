@@ -128,3 +128,7 @@ abbr saptu 'sudo apt update;'
 abbr sapti 'sudo apt update && sudo apt install'
 abbr saptr 'sudo apt remove --autoremove'
 abbr saptfs 'sudo apt-file search'
+
+# tmux 
+abbr ta 'tmux attach'
+abbr tn 'tmux new'

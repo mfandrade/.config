@@ -1,15 +1,36 @@
-theme = dark:GitHub-Dark-High-Contrast,light:GitHub-Light-High-Contrast
-font-family = "JetBrainsMono Nerd Font"
-font-family-bold = "JetBrains Mono Nerd Font
-font-family-italic = "JetBrains Mono Nerd Font Italic"
-font-family-bold-italic = "JetBrains Mono Nerd Font Italic"
+# Themes
+theme = dark:GitHub Dark High Contrast,light:GitHub Light High Contrast
+
+# Fonts
+font-size = 14
+font-family = JetBrainsMono Nerd Font
+font-family-bold = JetBrainsMono Nerd Font
+font-family-italic = JetBrainsMono Nerd Font Italic
+font-family-bold-italic = JetBrainsMono Nerd Font Bold Italic
+
+# Look-and-feel
+background-opacity = 0.80
+background-blur = false
 bold-is-bright = false
-background-opacity = 0.50
-cursor-style = block
-cursor-style-blink = true
 cursor-invert-fg-bg = true
-shell-integration = none
+cursor-style-blink = true
+cursor-style = block
+window-decoration = none
+
+# Shell
+shell-integration = fish
 shell-integration-features = no-cursor
 confirm-close-surface = false
+
+# Keybinds
 keybind = ctrl+slash=text:/
 keybind = shift+ctrl+slash=text:?
+
+# Shaders 
+# custom-shader = shaders/cursor_sweep.glsl
+# custom-shader = shaders/cursor_tail.glsl
+# custom-shader = shaders/cursor_warp.glsl
+# custom-shader = shaders/rectangle_boom_cursor.glsl
+# custom-shader = shaders/ripple_cursor.glsl
+# custom-shader = shaders/ripple_rectangle_cursor.glsl
+# custom-shader = shaders/sonic_boom_cursor.glsl

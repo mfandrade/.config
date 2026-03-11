@@ -1,78 +1,79 @@
-abbr cd- 'cd -'
-abbr cd.. 'cd ..'
-abbr 1.. 'cd ..'
-abbr 2.. 'cd ../..'
-abbr 3.. 'cd ../../..'
-abbr 4.. 'cd ../../../..'
-abbr 5.. 'cd ../../../../..'
+abbr - cd -
+abbr .. cd ..
+abbr 1.. cd ..
+abbr 2.. cd ../..
+abbr 3.. cd ../../..
+abbr 4.. cd ../../../..
+abbr 5.. cd ../../../../..
 
 # extremely common
-abbr s session
 abbr v nvim
-abbr cls clear
-abbr ls eza
-abbr la 'eza -a'
-abbr l 'eza -l'
-# abbr t 'eza -T'
-abbr t1 'eza -T -L 1'
-abbr t2 'eza -T -L 2'
-abbr t3 'eza -T -L 3'
+abbr s session # custom script
+abbr p pass
 abbr g git
+abbr c clear
+abbr l eza -l
+abbr ls eza
+abbr la eza -a
+abbr l1 eza -1
+abbr t1 eza -T -L 1
+abbr t2 eza -T -L 2
+abbr t3 eza -T -L 3
 abbr md mkdir
 abbr rd rmdir
 abbr cd z
-abbr zz zi
+abbr zi z -i
+abbr cdi z -i
 abbr lg lazygit
-abbr lr lazydocker
 abbr ffp firefoxpwa
-abbr cs cheat
-alias fd='fd -HI'
-alias rg='rg -.'
+abbr fd fd -HI
+abbr rg rg -.
 
 # tree
-alias tree='exa --tree --level=2 --git-ignore'
+abbr tree exa --tree --level=2 --git-ignore
 
 # bat
-alias cat='bat -n'
+abbr cat bat -n
 
 # bak
 function bak
     for file in $argv
-        cp -iv $file "$file.bak"
+        if test -e $file
+            set -l target (string trim -r -c / $file).bak
+            cp -ivR $file $target
+        else
+            echo "File '$file' does not exist" >/dev/stderr
+            return 1
+        end
     end
 end
 
 # ctrlc
 function ctrlc
     set -l file $argv[1]
+
     if test -z "$file" -o ! -f "$file"
         echo "File not found" >/dev/stderr
         return 2
     end
+
     if file -bL --mime "$file" | grep -q 'binary$'
         echo "Binary file detected" >/dev/stderr
         return 1
     end
-    if type -q wl-copy
-        wl-copy <"$file"
-    else if type -q xsel
-        xsel --clipboard <"$file"
+
+    if type -q fish_clipboard_copy
+        fish_clipboard_copy <"$file"
     else
-        echo "No clipboard utility found" >/dev/stderr
+        echo "Function fish_clipboard_copy is not available" >/dev/stderr
         return 3
     end
 end
 
 # tmux
-alias tn='tmux new-session'
-alias tl='tmux list-sessions'
-alias ta='tmux attach-session'
-function tt
-    set -l session (count $argv) >/dev/null; and set session $argv[1]; or set session default
-    tmux has-session -t "$session" >/dev/null 2>&1
-    and tmux attach-session -t "$session"
-    or tmux new-session -s "$session"
-end
+abbr tl tmux list-sessions
+abbr tt tmux new-session
+abbr ta tmux attach-session
 
 # git
 function load_git_shell_aliases
@@ -124,18 +125,9 @@ abbr nrt 'npm run test'
 abbr naf 'npm audit fix'
 
 # apt
-abbr sapt 'sudo apt'
-abbr saptu 'sudo apt update;'
-abbr sapti 'sudo apt update && sudo apt install'
-abbr saptr 'sudo apt remove --autoremove'
-abbr saptfs 'sudo apt-file search'
-
-# tmux 
-abbr ta 'tmux attach'
-abbr tn 'tmux new'
-
-# pass
-abbr p pass
-abbr pw pass show
-abbr pe pass edit
-abbr pm pass mv
+abbr sag 'sudo apt-get'
+abbr sagu 'sudo apt-get update;'
+abbr sagi 'sudo apt-get update && sudo apt install'
+abbr sagr 'sudo apt-get remove --autoremove'
+abbr sagp 'sudo apt-get purge --autoremove'
+abbr safs 'sudo apt-file search'

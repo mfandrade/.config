@@ -118,6 +118,8 @@ end
 # npm
 abbr ni 'npm install'
 abbr ns 'npm start'
+abbr nt 'npm test'
+abbr nrs 'npm run start'
 abbr nrt 'npm run test'
 abbr naf 'npm audit fix'
 

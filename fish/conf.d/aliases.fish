@@ -18,7 +18,6 @@ abbr t1 'eza -T -L 1'
 abbr t2 'eza -T -L 2'
 abbr t3 'eza -T -L 3'
 abbr g git
-abbr p pwd
 abbr md mkdir
 abbr rd rmdir
 abbr cd z
@@ -132,3 +131,9 @@ abbr saptfs 'sudo apt-file search'
 # tmux 
 abbr ta 'tmux attach'
 abbr tn 'tmux new'
+
+# pass
+abbr p pass
+abbr pw pass show
+abbr pe pass edit
+abbr pm pass mv

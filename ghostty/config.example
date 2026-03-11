@@ -2,7 +2,7 @@
 theme = dark:GitHub Dark High Contrast,light:GitHub Light High Contrast
 
 # Fonts
-font-size = 14
+font-size = 11
 font-family = JetBrainsMono Nerd Font
 font-family-bold = JetBrainsMono Nerd Font
 font-family-italic = JetBrainsMono Nerd Font Italic
@@ -10,7 +10,7 @@ font-family-bold-italic = JetBrainsMono Nerd Font Bold Italic
 
 # Look-and-feel
 background-opacity = 0.80
-background-blur = false
+background-blur = true
 bold-is-bright = false
 cursor-invert-fg-bg = true
 cursor-style-blink = true
@@ -19,12 +19,13 @@ window-decoration = none
 
 # Shell
 shell-integration = fish
-shell-integration-features = no-cursor
+shell-integration-features = ssh-terminfo,ssh-env
 confirm-close-surface = false
 
 # Keybinds
-keybind = ctrl+slash=text:/
-keybind = shift+ctrl+slash=text:?
+# keybind = ctrl+slash=text:/
+# keybind = shift+ctrl+slash=text:?
+keybind = shift+ctrl+control_right=text:?
 
 # Shaders 
 # custom-shader = shaders/cursor_sweep.glsl

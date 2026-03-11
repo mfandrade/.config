@@ -1,5 +1,6 @@
 # ~/.config/fish/config.fish
 
+set -gx EDITOR vim
 set -gx PAGER 'bat -p'
 set -gx MANPAGER 'sh -c "col -b | bat -l man -p"'
 set -gx MANROFFOPT -c

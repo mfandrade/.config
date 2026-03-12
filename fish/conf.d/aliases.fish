@@ -70,6 +70,19 @@ function ctrlc
     end
 end
 
+# mkcd
+function mkcd
+    set -l folder $argv[1]
+
+    if test -d "$folder" -o -f "$folder"
+        # cannot create directory ‘dirs’: File exists
+        echo "Cannot create directory '$folder': File exists" >/dev/stderr
+        return 1
+    end
+    mkdir -p $folder
+    cd $folder
+end
+
 # tmux
 abbr tl tmux list-sessions
 abbr tt tmux new-session

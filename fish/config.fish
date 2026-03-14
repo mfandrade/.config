@@ -11,6 +11,7 @@ if status is-interactive
     set -q SSH_AUTH_SOCK; or eval (ssh-agent -c)
     set -gx EZA_ICONS_AUTO yes
     set -gx RIPGREP_CONFIG_PATH "$HOME/.config/ripgrep/config"
+    set -gx PASSWORD_STORE_DIR "$HOME/.passwords"
     fish_vi_key_bindings
 
 end

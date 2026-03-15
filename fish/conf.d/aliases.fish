@@ -8,7 +8,7 @@ abbr 5.. cd ../../../../..
 
 # extremely common
 abbr v nvim
-abbr s session # custom script
+abbr s session.sh
 abbr p pass
 abbr g git
 abbr l eza -l

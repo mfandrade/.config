@@ -1,0 +1,164 @@
+#!/bin/bash
+# set -eu
+# ==============================================================================
+# SCRIPT:      session (POSIX sh version)
+# ==============================================================================
+
+err() {
+    echo "Error: ${1:-unkown-reason}" >&2
+    exit 1
+}
+
+for tool in fzf tmux realpath; do
+    if ! command -v "$tool" >/dev/null 2>&1; then
+        err "Required tool not installed: '$tool'"
+    fi
+done
+
+getval() {
+    _rcfile="$HOME/.config/tmux/sessionrc"
+    [ ! -f "$_rcfile" ] && return 1
+
+    if [ -z "${1:-}" ] && [ -z "${2:-}" ]; then
+        # Extract section names (e.g., "[session-script]")
+        _re_section='s/^\[\(.*\)\]$/\1/p'
+        sed -n "$_re_section" "$_rcfile" || true
+        exit 0
+    fi
+    _key="${1:-}"
+    _section="${2:-DEFAULT}"
+    _val=""
+    if [ -f "$_rcfile" ]; then
+        # Simple INI parser using sed to get the value for a key in a section
+        _val=$(sed -n "/^\[$_section\]/,/^\[/p" "$_rcfile" | grep "^$_key[[:space:]]*=" | cut -d'=' -f2- | sed 's/^[[:space:]]*//' || true)
+    fi
+
+    _re_remove_comments_spaces='s/[[:space:]]*#.*$//; s/[[:space:]]*$//'
+    _val=$(echo "$_val" | sed "$_re_remove_comments_spaces")
+    _val=$(echo "$_val" | sed "s,^~,$HOME,")
+
+    echo "$_val"
+}
+
+main() {
+    ROOTS=$(getval 'roots')
+    STARTUP=$(getval 'startup') # Default startup if no specific one found
+    sections=$(getval)
+    selected_path=""
+    session_name=""     # New variable to store the desired tmux session name
+    selected_startup="" # To store startup command for the specific section
+
+    # 1. Check if argument is provided and is a valid directory
+    if [ -n "${1:-}" ]; then
+        _arg_path=$(echo "$1" | sed "s,^~,$HOME,")
+        if [ -d "$_arg_path" ]; then
+            selected_path="$_arg_path"
+            session_name=$(basename "$selected_path" | sed 's,[^[:alnum:]_-],_,g') # Use basename if arg is a direct path
+        fi
+    fi
+
+    # 2. Check aliases in config if no direct path was found or arg was not a valid dir
+    if [ -z "$selected_path" ] && [ -n "$sections" ]; then
+        for section in $sections; do
+            alias=$(getval alias "$section" | tr "," " ")
+            # Check if the provided argument matches an alias or the section name itself
+            if [ -n "${1:-}" ] && (echo " $alias " | grep -q " $1 " || [ "$1" = "$section" ]); then
+                selected_startup=$(getval startup "$section")
+                selected_path=$(getval path "$section")
+                session_name="$section"
+                break
+            fi
+        done
+    fi
+
+    # 3. Fallback to fzf if no specific section/alias matched and no direct path was used
+    if [ -z "$selected_path" ]; then
+        _roots="${ROOTS:-$HOME}"
+        _valid_roots=""
+        for _r in $_roots; do
+            case "$_r" in ~*) _r="$HOME${_r#~}" ;; esac
+            [ -d "$_r" ] && _valid_roots="$_valid_roots $_r"
+        done
+
+        if [ -n "$_valid_roots" ]; then
+            # fzf selection - provide a header with the query
+            # User selects a directory, we'll use its basename as session name
+            selected_path=$(find $_valid_roots -mindepth 1 -maxdepth 1 -type d 2>/dev/null | sed "s|^$HOME|~|" | fzf --header="Select Session Directory" --query="${1:-}")
+            if [ -n "$selected_path" ]; then
+                session_name=$(basename "$selected_path" | sed 's/[^[:alnum:]_-]/_/g') # Use basename for fzf selections
+            fi
+        fi
+    fi
+
+    # Error handling if no path could be determined
+    if [ -z "$selected_path" ] && [ -n "${1:-}" ]; then
+        err "Informed dir or alias does not exist: $1"
+    elif [ -z "$selected_path" ]; then
+        # If no argument was given and fzf yielded nothing
+        exit 0
+    fi
+
+    # Resolve the real path of the selected directory
+    selected_path=$(echo "$selected_path" | sed "s,^~,$HOME,")
+    selected_path=$(realpath "$selected_path")
+
+    if [ ! -d "$selected_path" ]; then
+        err "Resolved directory does not exist: $selected_path"
+    fi
+
+    # Use the determined session_name, fallback to derived from path if session_name is empty
+    if [ -z "$session_name" ]; then
+        session_name=$(basename "$selected_path" | sed 's/[^[:alnum:]_-]/_/g')
+    fi
+
+    # Determine the command to run (startup command)
+    cmd="${selected_startup:-$STARTUP}" # Prioritize section-specific startup, then global default
+
+    # Handle tmux logic
+    if [ -n "${TMUX:-}" ]; then
+        current_session=$(tmux display-message -p '#S' 2>/dev/null)
+        current_dir=$(realpath "$PWD" 2>/dev/null || printf '%s' "$PWD")
+
+        if [ "$current_session" = "$session_name" ]; then
+            # If already in the target session, check if current directory matches
+            case "$current_dir" in
+            "$selected_path" | "$selected_path/"*) ;; # Directory matches or is a subdirectory
+            *)
+                # If directory doesn't match, change directory in the current pane
+                if [ -n "${TMUX_PANE:-}" ]; then
+                    # Using printf %q for safe quoting of the path
+                    _safe_path=$(printf '%q' "$selected_path")
+                    tmux send-keys -t "$TMUX_PANE" "cd $_safe_path" C-m
+                fi
+                ;;
+            esac
+            exit 0
+        fi
+
+        # If not in the target session, check if it exists and switch
+        if ! tmux has-session -t="$session_name" 2>/dev/null; then
+            tmux new-session -ds "$session_name" -c "$selected_path"
+            if [ -n "$cmd" ]; then
+                tmux send-keys -t "$session_name" "$cmd" C-m
+            fi
+        fi
+        tmux switch-client -t "$session_name"
+        exit 0
+    fi
+
+    # Not in tmux, decide to attach or create a new session
+    if tmux has-session -t="$session_name" 2>/dev/null; then
+        exec tmux attach-session -t "$session_name"
+    fi
+
+    # Create a new session
+    if [ -n "$cmd" ]; then
+        exec tmux new-session -s "$session_name" -c "$selected_path" "$cmd"
+    else
+        exec tmux new-session -s "$session_name" -c "$selected_path"
+    fi
+}
+
+[[ ${BASH_SOURCE[0]} = $0 ]] && main "$@"
+
+# vim: ts=4 sts=4 sw=4

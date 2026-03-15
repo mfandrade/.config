@@ -11,7 +11,6 @@ abbr v nvim
 abbr s session # custom script
 abbr p pass
 abbr g git
-abbr c clear
 abbr l eza -l
 abbr ls eza
 abbr la eza -a
@@ -22,6 +21,7 @@ abbr t3 eza -T -L 3
 abbr t4 eza -T -L 4
 abbr md mkdir
 abbr rd rmdir
+abbr c z
 abbr cd z
 abbr zi z -i
 abbr cdi z -i

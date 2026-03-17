@@ -86,7 +86,6 @@
     co = checkout
     cob = checkout -b
     discard = checkout
-    discard-all = checkout .
     copy = "!f() { git checkout \"$2\" -- \"$1\"; }; f \"$@\"" # git copy the-file from=branch
     cp = cherry-pick
 

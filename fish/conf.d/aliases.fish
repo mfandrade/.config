@@ -16,6 +16,7 @@ abbr ls eza
 abbr la eza -a
 abbr l1 eza -1
 abbr t eza -T -L 2
+abbr t1 eza -T -L 1
 abbr t2 eza -T -L 2
 abbr t3 eza -T -L 3
 abbr t4 eza -T -L 4

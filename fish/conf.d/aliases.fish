@@ -117,8 +117,11 @@ function asdflatest
     asdf install $plugin $latest && asdf set --home $plugin $latest
 end
 function asdfupgradeall
+    argparse p/purge -- $argv
+    or return
+    # argparse defines a var called _flag_purge if it was passed
     set -l purge false
-    if contains -- --purge $argv
+    if set -q _flag_purge
         echo "Also purging old versions"
         set purge true
     end

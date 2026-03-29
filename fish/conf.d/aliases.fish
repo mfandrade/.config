@@ -150,3 +150,6 @@ abbr sagi 'sudo apt-get update && sudo apt install'
 abbr sagr 'sudo apt-get remove --autoremove'
 abbr sagp 'sudo apt-get purge --autoremove'
 abbr safs 'sudo apt-file search'
+
+# wezterm 
+alias wezterm='flatpak run org.wezfurlong.wezterm'

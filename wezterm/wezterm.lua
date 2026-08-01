@@ -14,6 +14,13 @@ end)
 config.initial_cols = 120
 config.initial_rows = 28
 
+config.window_padding = {
+  left = 1,
+  right = 1,
+  top = 0,
+  bottom = 0,
+}
+
 config.font_size = 10
 config.color_scheme = "Tango (terminal.sexy)"
 config.font = wezterm.font("JetBrainsMono NF")
